@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pyquiz',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,8 +58,11 @@ WSGI_APPLICATION = 'python_quizzup.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'quizzup',
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': 'reverse',                  # Not used with sqlite3.
+        'HOST': 'localhost',          
     }
 }
 
@@ -79,4 +83,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/media/'
+STATICFILES_DIRS = ( 
+    BASE_DIR + "/media/",
+)
+TEMPLATE_DIRS = (
+    BASE_DIR+'/templates',
+)
