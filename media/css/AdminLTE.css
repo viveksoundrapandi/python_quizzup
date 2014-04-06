@@ -1029,6 +1029,7 @@ body > .header .logo .icon {
   border-color: #f39c12 !important;
   box-shadow: none;
 }
+/*
 .form-group.has-error label {
   color: #f56954;
 }
@@ -1036,6 +1037,7 @@ body > .header .logo .icon {
   border-color: #f56954 !important;
   box-shadow: none;
 }
+*/
 /* Input group */
 .input-group .input-group-addon {
   border-radius: 0;
@@ -2309,10 +2311,12 @@ Component: timeline
 .form-box .footer > .form-group {
   margin-top: 20px;
 }
+/*
 .form-box .body > .form-group > input,
 .form-box .footer > .form-group > input {
   border: #fff;
 }
+*/
 .form-box .body > .btn,
 .form-box .footer > .btn {
   margin-bottom: 10px;
@@ -2804,10 +2808,27 @@ Component: timeline
 }
 
 /* custom styling starts */
+body {
+    font-size: 18px;
+}
 .btn-inverse, .btn-inverse:hover {
   background-color: #222222;
   color: #ffffff;
   margin-top: 9px;
 }
-
+.blue-link {
+  color: #72AFD2!important;
+}
+.blue-link:active {
+  color: #72AFD2!important;
+  outline: medium none;
+}
+.form-box-static {
+  margin-top: 0px;
+  padding-top: 60px;
+}
+.form-box-static .copyrights{
+  margin-bottom: 0px;
+}
+.general-errors {color:#A94442;}
 /* custom styling ends */

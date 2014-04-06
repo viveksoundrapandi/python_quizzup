@@ -1,0 +1,38 @@
+{% extends 'pyquiz/base_static.html' %}
+{% block title %}Sign In{% endblock title %}
+{% block content %}
+            <div class="form-box form-box-static" id="login-box">
+                <div class="header">Sign In</div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="body bg-gray">
+                        {% if error.general %}
+                            <div class="help-block with-errors general-errors">{{ error.general }}</div>
+                        {% endif %}
+                        <div class="form-group {% if error.general %} has-error {% endif %}">
+                            <input type="email" name="username" class="form-control" placeholder="User ID" required data-error="Bruh, that email address is invalid" />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group {% if error.general or error.username %} has-error {% endif %}">
+                            <input type="password" name="password" class="form-control" placeholder="Password" data-minlength="6" required data-error="Minimum of 6 characters"/>
+                            <div class="help-block with-errors"></div>
+                        </div>          
+                        <div class="form-group">
+                            <input type="checkbox" name="remember_me"/> Remember me
+                        </div>
+                    </div>
+                    <div class="footer">                                                               
+                        <button type="submit" class="btn bg-olive btn-block">Sign me in</button>  
+                        
+                        <p><a href="#">I forgot my password</a></p>
+                        
+                        <a href="register.html" class="text-center">Request a new membership</a>
+                    </div>
+                </form>
+
+                <div class="margin text-center copyrights">
+                    <span>&copy; 2014 Vivek Soundrapandi</span>
+
+                </div>
+            </div>
+{% endblock content %}

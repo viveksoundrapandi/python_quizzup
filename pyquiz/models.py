@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Questions(models.Model):
@@ -13,3 +14,11 @@ class Choices(models.Model):
     choice_3 = models.TextField(null = True)
     choice_4 = models.TextField(null = True)
     answer = models.CharField(max_length=255)
+
+class QuizHistory(models.Model):
+    """
+    Maps the user's auth_user id to the last attended quiz id
+    """
+    user_id = models.ForeignKey(User)
+    week_id = models.PositiveIntegerField()
+

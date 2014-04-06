@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -90,3 +90,5 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     BASE_DIR+'/templates',
 )
+LOGIN_URL = '/pyquiz/login/'
+

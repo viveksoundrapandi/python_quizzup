@@ -2,30 +2,51 @@
 {% block content %}
                             <!-- Primary box -->
                             <div class="box box-primary">
-                                <div title="" data-toggle="tooltip" class="box-header" data-original-title="PyQuiz Information Bulletin">
-                                    <h3 class="box-title">Welcome Poochi</h3>
+                                <div title="" data-toggle="tooltip" class="box-header" data-original-title="PyQuiz Weekly Questions">
+                                    <h3 class="box-title">Question 1</h3>
                                     
                                 </div>
                                 <div class="box-body ">
-                                        <p>What will be the value of x & y?</p>
-                                        <div class="callout callout-info">
-                                        <p>x=1<br>y=x<br>x=2</p>
-                                    </div>
-
-                                  <!-- radio -->
-                                        <div class="form-group"> 
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                                    Option one is this and that&mdash;be sure to include why it's great
-                                                </label>
+                                    <form id="quiz-form" method="POST" action="">
+                                        {% csrf_token %}
+                                        {% for question_set in questions_set %}
+                                            <div id="Q{{ forloop.counter }}" class="questions" {% if not forloop.first %} style="display:none;" {% endif %}>
+                                                <input type="hidden" value="0" name="t_{{ question_set.question.id }}" />
+                                                {{ question_set.question.question }}
+                                                <!-- radio -->
+                                                <div class="form-group"> 
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="{{ question_set.question.id }}" value="{{ question_set.choices.choice_1 }}">
+                                                            {{ question_set.choices.choice_1 }}
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="{{ question_set.question.id }}" value="{{ question_set.choices.choice_2 }}">
+                                                            {{ question_set.choices.choice_2 }}
+                                                        </label>
+                                                    </div>
+                                                    {% if question_set.choices.choice_3 %}
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="{{ question_set.question.id }}" value="{{ question_set.choices.choice_3 }}">
+                                                            {{ question_set.choices.choice_3 }}
+                                                        </label>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if question_set.choices.choice_4 %}
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="{{ question_set.question.id }}" id="question{{ forloop.counter }}" value="{{ question_set.choices.choice_4 }}">
+                                                            {{ question_set.choices.choice_4 }}
+                                                        </label>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
                                             </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                                    Option two can be something else and selecting it will deselect option one
-                                                </label>
-                                            </div>                                        
+                                        {% endfor %}
+                                    </form>
                                 </div>
                                 <div class="box-footer">
                                     <p>All the best!!!</p>
