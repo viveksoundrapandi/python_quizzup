@@ -1,0 +1,17 @@
+{% extends 'pyquiz/base.html' %}
+{% block content %}
+                            <!-- Primary box -->
+                            <div class="box box-primary">
+                                <div title="" data-toggle="tooltip" class="box-header" data-original-title="PyQuiz Information Bulletin">
+                                    <h3 class="box-title">{% if weekly %}Weekly{% else %}Overall{% endif %} LeaderBoard</h3>
+                                </div>
+                                <div class="box-body">
+                                    {% for item in leaderboard %}
+                                        <p>{{ item.user_id.username }} - {{ item.points }}</p>
+                                    {% endfor %}
+                                </div><!-- /.box-body -->
+                                <div class="box-footer">
+                                    <p>Survival of the fittest...</p>
+                                </div><!-- /.box-footer-->
+                            </div><!-- /.box -->
+{% endblock content %}

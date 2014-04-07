@@ -22,3 +22,8 @@ class QuizHistory(models.Model):
     user_id = models.ForeignKey(User)
     week_id = models.PositiveIntegerField()
 
+class LeaderBoard(models.Model):
+    user_id = models.ForeignKey(User)
+    week_id = models.PositiveIntegerField()
+    points = models.PositiveIntegerField()
+    timestamp = models.DateTimeField(auto_now = True)    
