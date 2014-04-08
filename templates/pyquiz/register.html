@@ -1,38 +1,52 @@
 {% extends 'pyquiz/base_static.html' %}
-{% block title %}Sign In{% endblock title %}
+{% block title %}Register{% endblock title %}
 {% block content %}
             <div class="form-box form-box-static" id="login-box">
-                <div class="header">Sign In</div>
+                {% if success %}
+                    We have sent you a verification mail, Please check your inbox.<br/>
+                    <a href="{% url 'index' %}">Go to HomePage</a>
+                {% else %}
+
+                <div class="header">Register</div>
                 <form action="" method="POST">
                     {% csrf_token %}
                     <div class="body bg-gray">
-                        {% if error.general %}
-                            <div class="help-block with-errors general-errors">{{ error.general }}</div>
-                        {% endif %}
-                        <div class="form-group {% if error.general %} has-error {% endif %}">
-                            <input type="email" name="username" class="form-control" placeholder="User ID" required data-error="Bruh, that email address is invalid" />
+                        <div class="form-group ">
+                            <input type="text" name="first_name" class="form-control" placeholder="First Name" required data-error="There's no one without a first name" required data-error="Minimum of 3 characters" data-minlength="3" value="{{ post_data.first_name }}"/>
                             <div class="help-block with-errors"></div>
                         </div>
-                        <div class="form-group {% if error.general or error.username %} has-error {% endif %}">
-                            <input type="password" name="password" class="form-control" placeholder="Password" data-minlength="6" required data-error="Minimum of 6 characters"/>
+                        <div class="form-group ">
+                            <input type="text" name="last_name" class="form-control" placeholder="Last Name" required data-error="You need to have a last name buddy" required value="{{ post_data.last_name }}" />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group {% if error.username %} has-error {% endif %}">
+                            <input id="username" type="email" name="username" class="form-control" placeholder="Email ID" required data-error="Bruh, that email address is invalid" value="{{ post_data.username }}" />
+                            <div class="help-block with-errors">{{ error.username }}</div>
+                        </div>
+                        
+                        <div class="form-group ">
+                            <input type="password" name="password" class="form-control" placeholder="Password" data-minlength="6" required data-error="Minimum of 6 characters" id="inputPassword" value="" />
                             <div class="help-block with-errors"></div>
                         </div>          
-                        <div class="form-group">
-                            <input type="checkbox" name="remember_me"/> Remember me
+                        <div class="form-group ">
+                            <input type="password" name="confirm_password" class="form-control" id="inputPasswordConfirm" placeholder="Confirm Password" data-minlength="6" required data-error="Minimum of 6 characters" data-match="#inputPassword" data-match-error="Whoops, these don't match"  />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group ">
+                            <input type="text" name="role" class="form-control" placeholder="Job Designation" required data-error="Urghh, You need to enter your job designation" required data-error="Minimum of 5 characters" data-minlength="6" value="{{ post_data.role }}" />
+                            <div class="help-block with-errors"></div>
                         </div>
                     </div>
                     <div class="footer">                                                               
-                        <button type="submit" class="btn bg-olive btn-block">Sign me in</button>  
-                        
-                        <p><a href="{% url 'forgot-password' %}">I forgot my password</a></p>
-                        
-                        <a href="{% url 'register' %}" class="text-center">Request a new membership</a>
+                        <button type="submit" class="btn bg-olive btn-block">Register me</button>  
                     </div>
                 </form>
-
+                {% endif %}
+        
                 <div class="margin text-center copyrights">
                     <span>&copy; 2014 Vivek Soundrapandi</span>
 
                 </div>
             </div>
 {% endblock content %}
+

@@ -8,10 +8,10 @@ urlpatterns = patterns('',
     url(r'^logout/?$', views.logout_user, name='logout'),
     url(r'^leaderboard/?(?P<board_type>(weekly|overall))?/?(?P<week_id>\d+)?/?$', views.show_leaderboard, name='leaderboard'),
     url(r'^edit-profile/?$', views.edit_profile, name='edit-profile'),
-    url(r'^register/?$', views.index, name='register'),
+    url(r'^register/?$', views.register, name='register'),
     url(r'^forgot-password/?$', views.forgot_password, name='forgot-password'),
     url(r'^reset/(?P<email_id>(.*))/?$', views.reset_password, name='reset-password'),
-
+    url(r'^verify/(?P<email_id>(.*))/?$', views.verify_password, name='verify-password'),
 )
 
 

@@ -5,11 +5,11 @@ $(document).ready(function()
     var progress_bar = $("#progressTimer");
     function show_next_question(current_question)
     {
-            questions.hide();
-            var closest = current_question.closest('.questions');
-            closest.find(':hidden').eq(0).val(time_remaining);
-            var next_question = closest.next();
             window.setInterval(function() {
+                questions.hide();
+                var closest = current_question.closest('.questions');
+                closest.find(':hidden').eq(0).val(time_remaining);
+                var next_question = closest.next();
                 if (next_question.index() != -1)
                 {
                     next_question.show();
@@ -20,7 +20,7 @@ $(document).ready(function()
                 {
                     $('#quiz-form').submit();
                 }
-            }, 1000);
+            }, 600);
     }
     function enable_progress_timer()
     {
@@ -51,5 +51,12 @@ $(document).ready(function()
             show_next_question($(this));
         });
         enable_progress_timer();
+    }
+    var username = $('#username');
+    if(username.length)
+    {
+        username.on('blur', function(){
+            $(this).next().text('');
+        });
     }
 });

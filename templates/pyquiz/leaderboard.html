@@ -17,16 +17,20 @@
                                                 <th>UserName</th>
                                                 <th>Score</th>
                                                 <th>Rank</th>
+                                                {% if not hide_status %}
                                                 <th>Status</th>         
+                                                {% endif %}
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for item in leaderboard %}
+                                            {% for item,value in leaderboard.items %}
                                                 <tr>
-                                                    <td>{{ item.user_id.username }}</td>
-                                                    <td>{{ item.points }}</td>
+                                                    <td>{{ value.username }}</td>
+                                                    <td>{{ value.points }}</td>
                                                     <td>{{ forloop.counter }}</td>
-                                                    <td>{{ item.previous_rank|sub:item.rank }}</td>
+                                                    {% if not hide_status %}
+                                                    <td>{{ value.previous_rank|sub:value.rank }}</td>
+                                                    {% endif %}
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
@@ -35,7 +39,9 @@
                                                 <th>UserName</th>
                                                 <th>Score</th>
                                                 <th>Rank</th>
+                                                {% if not hide_status %}
                                                 <th>Status</th>
+                                                {% endif %}
                                             </tr>
                                         </tfoot>
                                     </table>

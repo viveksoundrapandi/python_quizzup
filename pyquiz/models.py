@@ -14,18 +14,12 @@ class Choices(models.Model):
     choice_3 = models.TextField(null = True)
     choice_4 = models.TextField(null = True)
     answer = models.CharField(max_length=255)
-
-class QuizHistory(models.Model):
-    """
-    Maps the user's auth_user id to the last attended quiz id
-    """
+class UserDetails(models.Model):
     user_id = models.ForeignKey(User)
-    week_id = models.PositiveIntegerField()
+    role = models.CharField(max_length = 100)
 
 class LeaderBoard(models.Model):
     user_id = models.ForeignKey(User)
     week_id = models.PositiveIntegerField()
     points = models.PositiveIntegerField()
-    rank = models.PositiveIntegerField()
-    previous_rank = models.PositiveIntegerField()
     timestamp = models.DateTimeField(auto_now = True)    
