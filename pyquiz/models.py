@@ -26,4 +26,6 @@ class LeaderBoard(models.Model):
     user_id = models.ForeignKey(User)
     week_id = models.PositiveIntegerField()
     points = models.PositiveIntegerField()
+    rank = models.PositiveIntegerField()
+    previous_rank = models.PositiveIntegerField()
     timestamp = models.DateTimeField(auto_now = True)    

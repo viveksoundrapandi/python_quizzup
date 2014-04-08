@@ -3,6 +3,10 @@ import re
 from django.shortcuts import render,HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.core.mail import EmailMultiAlternatives, send_mail, get_connection
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
+import base64
 
 #cutom imports
 from python_quizzup import settings
@@ -44,9 +48,16 @@ def quiz(request, week_id):
             if not re.match('(csrfmiddlewaretoken)|(t_(\d+))', field):
                 if value == Choices.objects.get(question_id = field).answer:
                     score += 15 + min(int(request.POST['t_' + field]), 10)*1.5
-        LeaderBoard(user_id = request.user, week_id = week_id, points = score).save()
-        return HttpResponse(score)                
-#        return HttpResponseRedirect("/pyquiz/leaderboard/weekly/")
+        LeaderBoard(user_id = request.user, week_id = week_id, points = score, rank=0, previous_rank=0).save()
+        leaderboard = LeaderBoard.objects.all().order_by('-points')
+        if leaderboard:
+            leaderboard_list = [item for item in leaderboard]
+            sorted(leaderboard_list, key = lambda x:x.points, reverse=True) 
+            for rank, item in enumerate(leaderboard_list):
+                item.previous_rank = item.rank
+                item.rank = rank
+                item.save()
+        return HttpResponseRedirect("/pyquiz/leaderboard/weekly/")
 
 def login_user(request):
     context = {'error':{}}
@@ -71,15 +82,40 @@ def login_user(request):
 @login_required
 def show_leaderboard(request, board_type='overall', week_id=None):
     context = {}
-    leaderboard = LeaderBoard.objects.filter(user_id = request.user.id)
+    leaderboard = LeaderBoard.objects.all()
     if board_type and board_type.lower() == 'weekly' and week_id:
         leaderboard = leaderboard.filter(week_id = week_id)
         context['weekly'] = True
     if leaderboard:
         context['leaderboard'] = leaderboard.order_by('-points')
     print leaderboard
-    print leaderboard[0].user_id.username
     return render(request, 'pyquiz/leaderboard.html', context)
+def register(request):
+    context = {}
+    return render(request,'pyquiz/register.html',context)
+
+@login_required
+def edit_profile(request):
+    context = {}
+    return render(request,'pyquiz/edit-profile.html',context)
+def reset_password(request, email_id):
+    context = {}
+    return render(request,'pyquiz/reset-password.html',context)
+
+def forgot_password(request):
+    context = {}
+    if request.method == "POST":
+        print request.POST
+        html_content = render_to_string('pyquiz/forgot-password-mail.html', {'domain':settings.DOMAIN, 'email_id':base64.b64encode(request.POST['username'])}) 
+        text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
+        msg = EmailMultiAlternatives('PyQuiz:reset-password', text_content, 'vivekhas3@gmail.com',[request.POST['username']])
+        msg.attach_alternative(html_content, "text/html")
+        connection = get_connection()
+        connection.username='vivekhas3@gmail.com'
+        connection.password='g00gle_vivek'
+        connection.send_messages([msg,])
+        context['mail_sent'] = True
+    return render(request,'pyquiz/forgot-password.html',context)
 
 def logout_user(request):
     logout(request)

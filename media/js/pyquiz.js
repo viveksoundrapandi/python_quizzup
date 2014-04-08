@@ -9,16 +9,18 @@ $(document).ready(function()
             var closest = current_question.closest('.questions');
             closest.find(':hidden').eq(0).val(time_remaining);
             var next_question = closest.next();
-            if (next_question.index() != -1)
-            {
-                next_question.show();
-                progress_bar.html('<div class="progress xs active progress-striped"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="12" width="100%" style="width: 100%;"></div></div>');
-                enable_progress_timer();
-            }
-            else
-            {
-                $('#quiz-form').submit();
-            }
+            window.setInterval(function() {
+                if (next_question.index() != -1)
+                {
+                    next_question.show();
+                    progress_bar.html('<div class="progress xs active progress-striped"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="12" width="100%" style="width: 100%;"></div></div>');
+                    enable_progress_timer();
+                }
+                else
+                {
+                    $('#quiz-form').submit();
+                }
+            }, 1000);
     }
     function enable_progress_timer()
     {

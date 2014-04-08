@@ -24,7 +24,8 @@
         <link href="/media/css/green.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="/media/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-
+{% block page_styles %}
+{% endblock page_styles %}
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -35,7 +36,7 @@
     <body class="skin-black">
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="index.html" class="logo">
+            <a href="{% url 'index' %}" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
                 PyQuiz
             </a>
@@ -70,7 +71,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="{% url 'edit-profile' %}" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Sign out</a>
@@ -96,29 +97,29 @@
                         <div class="pull-left info">
                             <p>Hello, Poochi</p>
 
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <a href="javascrript:void(0);"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
 
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
-                            <a href="index.html">
+                            <a href="{% url 'index' %}">
                                 <i class="fa fa-dashboard"></i> <span>Home</span>
                             </a>
                         </li>
                         <li>
-                            <a href="pages/widgets.html">
+                            <a href="{% url 'edit-profile' %}">
                                 <i class="fa fa-edit"></i> <span>Edit Profile</span>
                             </a>
                         </li>
                         <li>
-                            <a href="pages/widgets.html">
+                            <a href="{% url 'leaderboard' '/weekly/' last_week_id  %}">
                                 <i class="fa fa-bar-chart-o"></i> <span>Weekly Leaderboard</span>
                             </a>
                         </li>                        
                         <li>
-                            <a href="pages/widgets.html">
+                            <a href="{% url 'leaderboard' '/overall' %}">
                                 <i class="fa fa-bar-chart-o"></i> <span>Overall Leaderboard</span>
                             </a>
                         </li>   
@@ -138,7 +139,7 @@
                         <small>Preview of Quiz</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li class="active">Dashboard</li>
                     </ol>
                 </section>
@@ -250,6 +251,7 @@
         <script src="/media/js/jquery.progressTimer.js" type="text/javascript"></script>     
         <!-- PyQuiz App -->
         <script src="/media/js/pyquiz.js" type="text/javascript"></script>        
-
+{% block page_scripts %}
+{% endblock page_scripts %}
     </body>
 </html>

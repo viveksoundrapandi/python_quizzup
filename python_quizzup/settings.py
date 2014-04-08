@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+import django.conf.global_settings as DEFAULT_SETTINGS
 
 
 # Quick-start development settings - unsuitable for production
@@ -46,6 +47,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'pyquiz.middleware.TemplateResponseMiddleware',
 )
 
 ROOT_URLCONF = 'python_quizzup.urls'
@@ -91,4 +93,10 @@ TEMPLATE_DIRS = (
     BASE_DIR+'/templates',
 )
 LOGIN_URL = '/pyquiz/login/'
-
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    'pyquiz.context_processor.add_extra_context',
+)
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DOMAIN = 'http://localhost:8000/'

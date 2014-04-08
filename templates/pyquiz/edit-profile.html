@@ -1,0 +1,31 @@
+{% extends 'pyquiz/base.html' %}
+{% block content %}
+                            <!-- Primary box -->
+                            <div class="box box-primary">
+                                {% if week_id %}
+                                <div title="" data-toggle="tooltip" class="box-header" data-original-title="PyQuiz Information Bulletin">
+                                    <h3 class="box-title">Question 1</h3>
+                                    
+                                </div>
+                                <div class="box-body">
+                                    Your Weekly Quiz is ready. Please click on the link below:
+                                    <p>
+                                        <button type="button" class="btn btn-inverse" id="take-quiz" data-redirect-to="{% url 'quiz' week_id %}">Take the Quiz</button>
+                                    </p>
+                                </div><!-- /.box-body -->
+                                <div class="box-footer">
+                                    <p>All the best!!!</p>
+                                </div><!-- /.box-footer-->
+                                {% else %}
+                                <div title="" data-toggle="tooltip" class="box-header" data-original-title="PyQuiz Information Bulletin">
+                                    <h3 class="box-title">Congrats!!!</h3>
+                                </div>
+                                <div class="box-body">
+                                    You have completed all your quizzes till this week. Now, carry on with your other work.
+                                </div><!-- /.box-body -->
+                                <div class="box-footer">
+                                    <p>Patience is the key...</p>
+                                </div><!-- /.box-footer-->
+                                {% endif %}
+                            </div><!-- /.box -->
+{% endblock content %}
