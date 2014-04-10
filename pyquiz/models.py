@@ -17,7 +17,13 @@ class Choices(models.Model):
 class UserDetails(models.Model):
     user_id = models.ForeignKey(User)
     role = models.CharField(max_length = 100)
-
+class QuizHistory(models.Model):
+    """
+    Contains the last attended quiz id.
+    """
+    user_id = models.ForeignKey(User)
+    week_id = models.PositiveIntegerField()
+    
 class LeaderBoard(models.Model):
     user_id = models.ForeignKey(User)
     week_id = models.PositiveIntegerField()

@@ -12,23 +12,28 @@ from django.contrib.auth.models import User
 
 #cutom imports
 from python_quizzup import settings
-from pyquiz.models import Questions, Choices, LeaderBoard, UserDetails
+from pyquiz.models import Questions, Choices, LeaderBoard, UserDetails, QuizHistory
 from pyquiz import utils
 @login_required
 def index(request):
     context = {}
-    latest_week = Questions.objects.all().values('week_id').order_by('-week_id')[0]
-    print latest_week
-    last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
-    print last_quiz
-    context['week_id'] = latest_week['week_id'] if not last_quiz or last_quiz[0].week_id != latest_week['week_id'] else ''
-#    context['week_id'] = '' #TO TEST THE NO ACTIVE QUIZ LOGIC
+    latest_week = Questions.objects.all().values('week_id').order_by('-week_id')
+    if latest_week:
+        latest_week = latest_week[0]
+        print latest_week
+        last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
+        print last_quiz
+        context['week_id'] = latest_week['week_id'] if not last_quiz or last_quiz[0].week_id != latest_week['week_id'] else ''
+    #    context['week_id'] = '' #TO TEST THE NO ACTIVE QUIZ LOGIC
     return render(request,'pyquiz/index.html', context)
 
 @login_required
 def quiz(request, week_id):
     print week_id
-    last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
+    if request.method == "GET":
+        last_quiz = QuizHistory.objects.filter(user_id = request.user.id)
+    else:
+        last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
     print last_quiz
     latest_week = Questions.objects.all().values('week_id').order_by('-week_id')[0]
     print latest_week
@@ -36,6 +41,7 @@ def quiz(request, week_id):
     if (last_quiz and week_id != last_quiz[0].week_id+1) or str(latest_week['week_id'])!=week_id:
         return render(request, 'pyquiz/404.html', {})
     if request.method == "GET":
+        QuizHistory(user_id=request.user, week_id=week_id).save()
         questions = Questions.objects.filter(week_id = int(week_id)).order_by('?')
         print questions
         questions_set = []
