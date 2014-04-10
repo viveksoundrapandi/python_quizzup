@@ -108,8 +108,11 @@ def show_leaderboard(request, board_type='overall', week_id=1):
                 leaderboard = {}
                 if leaderboard_new:
                     leaderboard_old_map = {item.user_id:{'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_old)}
+                    len_leaderboard_old_map = len(leaderboard_old_map) + 1
                     for rank,item in enumerate(leaderboard_new):
-                        leaderboard[item.user_id] = {'username':item.user_id.username,'points':item.points,'rank':rank+1,'previous_rank':leaderboard_old_map.get(item.user_id,{'rank':0})['rank']}
+                        leaderboard[item.user_id] = {'username':item.user_id.username,'points':item.points,'rank':rank + 1,'previous_rank':leaderboard_old_map.get(item.user_id,{'rank':len_leaderboard_old_map})['rank']}
+                        leaderboard[item.user_id]['rank_diff'] = leaderboard[item.user_id]['previous_rank'] - leaderboard[item.user_id]['rank']
+#                    assert False
                 else:
                     context['hide_status'] = True
                     leaderboard_objs = leaderboard_old

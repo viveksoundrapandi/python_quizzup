@@ -56,15 +56,15 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
-                                <span>Kaatu Poochi <i class="caret"></i></span>
+                                <span>{{ user_profile.first_name }} {{ user_profile.last_name }}<i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
                                     <img src="/media/img/avatar3.png" class="img-circle" alt="User Image" />
                                     <p>
-                                        Kaatu Poochi - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        {{ user_profile.first_name }} - {{ user_profile.last_name }} <br/>{{ user_profile.role }}
+                                        <small>Member since {{ user_profile.date_joined|date:'N Y' }}</small>
                                     </p>
                                 </li>
 
@@ -95,7 +95,7 @@
                             <img src="/media/img/avatar3.png" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, Poochi</p>
+                            <p>Hello, {{ user_profile.first_name }}</p>
 
                             <a href="javascrript:void(0);"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>

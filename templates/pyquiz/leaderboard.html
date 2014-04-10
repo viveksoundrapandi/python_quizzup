@@ -27,9 +27,9 @@
                                                 <tr>
                                                     <td>{{ value.username }}</td>
                                                     <td>{{ value.points }}</td>
-                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ value.rank }}</td>
                                                     {% if not hide_status %}
-                                                    <td>{{ value.previous_rank|sub:value.rank }}</td>
+                                                    <td>{{ value.rank_diff }}<img src="/media/img/{% if value.rank_diff > 0 %}up{% else %}{% if value.rank_diff < 0 %}down{% else %}equal{% endif %}{% endif %}.png" /></td>
                                                     {% endif %}
                                                 </tr>
                                             {% endfor %}
