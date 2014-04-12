@@ -3,7 +3,7 @@
 {% block title %}LeaderBoard{% endblock title %}
 {% block page_styles %}
         <!-- DATA TABLES -->
-        <link href="/media/css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" /> 
+        <link href="/static/css/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" /> 
 {% endblock page_styles %}
 {% block content %}
                             <div class="box">
@@ -29,7 +29,7 @@
                                                     <td>{{ value.points }}</td>
                                                     <td>{{ value.rank }}</td>
                                                     {% if not hide_status %}
-                                                    <td>{% if value.rank_diff > 0 %}+{% else %}{% if value.rank_diff < 0 %}{% else %}&nbsp;{% endif %}{% endif %}{{ value.rank_diff }}<img src="/media/img/{% if value.rank_diff > 0 %}up{% else %}{% if value.rank_diff < 0 %}down{% else %}equal{% endif %}{% endif %}.png" /></td>
+                                                    <td>{% if value.rank_diff > 0 %}+{% else %}{% if value.rank_diff < 0 %}{% else %}&nbsp;{% endif %}{% endif %}{{ value.rank_diff }}<img src="/static/img/{% if value.rank_diff > 0 %}up{% else %}{% if value.rank_diff < 0 %}down{% else %}equal{% endif %}{% endif %}.png" /></td>
                                                     {% endif %}
                                                 </tr>
                                             {% endfor %}
@@ -50,8 +50,8 @@
 {% endblock content %}
 {% block page_scripts %}
         <!-- DATA TABES SCRIPT -->
-        <script src="/media/js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
-        <script src="/media/js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+        <script src="/static/js/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+        <script src="/static/js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     $("#leaderboard").dataTable();
