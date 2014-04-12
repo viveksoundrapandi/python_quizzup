@@ -29,7 +29,7 @@
                                                     <td>{{ value.points }}</td>
                                                     <td>{{ value.rank }}</td>
                                                     {% if not hide_status %}
-                                                    <td>{{ value.rank_diff }}<img src="/media/img/{% if value.rank_diff > 0 %}up{% else %}{% if value.rank_diff < 0 %}down{% else %}equal{% endif %}{% endif %}.png" /></td>
+                                                    <td>{% if value.rank_diff > 0 %}+{% else %}{% if value.rank_diff < 0 %}{% else %}&nbsp;{% endif %}{% endif %}{{ value.rank_diff }}<img src="/media/img/{% if value.rank_diff > 0 %}up{% else %}{% if value.rank_diff < 0 %}down{% else %}equal{% endif %}{% endif %}.png" /></td>
                                                     {% endif %}
                                                 </tr>
                                             {% endfor %}

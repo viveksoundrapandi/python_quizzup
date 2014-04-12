@@ -1,13 +1,46 @@
 {% extends 'pyquiz/base.html' %}
 {% block content %}
                             <!-- Primary box -->
-                            <div class="box box-primary">
-                                <div title="" data-toggle="tooltip" class="box-header" data-original-title="PyQuiz Information Bulletin">
-                                    <h3 class="box-title">Update your profile details</h3>
-                                    
-                                </div>
+                {% if success %}
                                 <div class="box-body">
-                                    This page is still under construction.
+                                    Your Profile Information has been updated successfully.
                                 </div><!-- /.box-body -->
+
+                {% else %}
+                            <div class="box box-primary">
+<div class="form-box form-box-static" id="login-box">
+
+                <div class="header">Edit Profile</div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="body bg-gray">
+                        <div class="form-group ">
+                            <input type="text" name="first_name" class="form-control" placeholder="First Name" required data-error="There's no one without a first name" required data-error="Minimum of 3 characters" data-minlength="3" value="{{ post_data.first_name }}"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group ">
+                            <input type="text" name="last_name" class="form-control" placeholder="Last Name" required data-error="You need to have a last name buddy" required value="{{ post_data.last_name }}" />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        
+                        <div class="form-group ">
+                            <input type="password" name="password" class="form-control" placeholder="Password" data-minlength="6" required data-error="Minimum of 6 characters" id="inputPassword" value="" />
+                            <div class="help-block with-errors"></div>
+                        </div>          
+                        <div class="form-group ">
+                            <input type="password" name="confirm_password" class="form-control" id="inputPasswordConfirm" placeholder="Confirm Password" data-minlength="6" required data-error="Minimum of 6 characters" data-match="#inputPassword" data-match-error="Whoops, these don't match"  />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group ">
+                            <input type="text" name="role" class="form-control" placeholder="Job Designation" required data-error="Urghh, You need to enter your job designation" required data-error="Minimum of 5 characters" data-minlength="6" value="{{ post_data.role }}" />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="footer">                                                               
+                        <button type="submit" class="btn bg-olive btn-block">Update</button>  
+                    </div>
+                </form>
+            </div>
                             </div><!-- /.box -->
+                {% endif %}
 {% endblock content %}

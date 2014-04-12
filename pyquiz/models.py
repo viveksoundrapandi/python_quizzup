@@ -10,6 +10,8 @@ class CustomUser(AbstractUser):
     def get_username(self):
         return self.email
 CustomUser._meta.get_field_by_name('email')[0]._unique=True
+CustomUser._meta.get_field('username')._unique = False
+
 
 class Questions(models.Model):
     id = models.AutoField(primary_key=True)

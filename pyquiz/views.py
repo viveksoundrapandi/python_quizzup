@@ -8,11 +8,10 @@ from django.core.mail import EmailMultiAlternatives, send_mail, get_connection
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 from django.db.models import Max
-from django.contrib.auth.models import User
 
 #cutom imports
 from python_quizzup import settings
-from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory
+from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User
 from pyquiz import utils
 @login_required
 def index(request):
@@ -58,23 +57,13 @@ def quiz(request, week_id):
                 if value == Choices.objects.get(question_id = field).answer:
                     score += 15 + min(int(request.POST['t_' + field]), 10)*1.5
         LeaderBoard(user_id = request.user, week_id = week_id, points = score).save()
-        """
-        leaderboard = LeaderBoard.objects.all().order_by('-points')
-        if leaderboard:
-            leaderboard_list = [item for item in leaderboard]
-            sorted(leaderboard_list, key = lambda x:x.points, reverse=True) 
-            for rank, item in enumerate(leaderboard_list):
-                item.previous_rank = item.rank
-                item.rank = rank
-                item.save()
-        """
         return HttpResponseRedirect("/pyquiz/leaderboard/weekly/")
 
 def login_user(request):
     context = {'error':{}}
     if request.method == 'POST':
         print request.POST
-        user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
+        user = authenticate(email=request.POST.get('username'), password=request.POST.get('password'))
         print user
         if user is not None:
             # the password verified for the user
@@ -96,7 +85,7 @@ def show_leaderboard(request, board_type='overall', week_id=1):
     leaderboard = {}
     if board_type and board_type.lower() == 'weekly' and week_id:
         leaderboard_objs = LeaderBoard.objects.filter(week_id = week_id)
-        leaderboard = {item.user_id:{'username':item.user_id.username,'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_objs)}
+        leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_objs)}
         context['weekly'] = True
         context['hide_status'] = True
     else:
@@ -110,17 +99,17 @@ def show_leaderboard(request, board_type='overall', week_id=1):
                     leaderboard_old_map = {item.user_id:{'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_old)}
                     len_leaderboard_old_map = len(leaderboard_old_map) + 1
                     for rank,item in enumerate(leaderboard_new):
-                        leaderboard[item.user_id] = {'username':item.user_id.username,'points':item.points,'rank':rank + 1,'previous_rank':leaderboard_old_map.get(item.user_id,{'rank':len_leaderboard_old_map})['rank']}
+                        leaderboard[item.user_id] = {'username':item.user_id.email,'points':item.points,'rank':rank + 1,'previous_rank':leaderboard_old_map.get(item.user_id,{'rank':len_leaderboard_old_map})['rank']}
                         leaderboard[item.user_id]['rank_diff'] = leaderboard[item.user_id]['previous_rank'] - leaderboard[item.user_id]['rank']
 #                    assert False
                 else:
                     context['hide_status'] = True
                     leaderboard_objs = leaderboard_old
-                    leaderboard = {item.user_id:{'username':item.user_id.username,'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_objs)}
+                    leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_objs)}
             else:
                 context['hide_status'] = True
                 leaderboard_objs = leaderboard_new
-                leaderboard = {item.user_id:{'username':item.user_id.username,'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_objs)}
+                leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_objs)}
     context['leaderboard'] = leaderboard
     print leaderboard
     return render(request, 'pyquiz/leaderboard.html', context)
@@ -130,10 +119,10 @@ def register(request):
     if request.method == "POST":
         print request.POST
         context['post_data'] = request.POST
-        if User.objects.filter(username=request.POST['username']).exists():
+        if User.objects.filter(email=request.POST['username']).exists():
             context['error']['username'] = 'Username Already taken :(' 
         else:
-            new_user = User.objects.create_user(request.POST['username'], request.POST['username'], request.POST['password'], \
+            new_user = User.objects.create_user(request.POST['username'].split("@")[0], request.POST['username'], request.POST['password'], \
                                                 first_name=request.POST['first_name'], last_name=request.POST['last_name'], role=request.POST['role'])
             new_user.is_active = 0
             utils.send_mail_via_gmail('pyquiz/register-mail.html', {'domain':settings.DOMAIN, 'email_id':base64.b64encode(request.POST['username'])},\
@@ -146,11 +135,25 @@ def register(request):
 @login_required
 def edit_profile(request):
     context = {}
+    if request.method == "POST":
+        print request.POST
+        context['post_data'] = request.POST
+        user_obj = User.objects.get(id=request.user.id)
+        user_obj.first_name = request.POST['first_name']
+        user_obj.last_name = request.POST['last_name']
+        user_obj.confirm_password = request.POST['confirm_password']
+        user_obj.role = request.POST['role']
+        user_obj.save()
+        context['success'] = True
+        context['post_data'] = user_obj.__dict__
+    else:
+        context['post_data'] = User.objects.get(id=request.user.id)
+    print context
     return render(request,'pyquiz/edit-profile.html',context)
 def verify_password(request, email_id):
     context = {}
     email_id = base64.b64decode(email_id)
-    u = User.objects.get(username__exact=email_id)
+    u = User.objects.get(email__exact=email_id)
     u.is_active = 1
     u.save()
     return render(request,'pyquiz/verified.html',context)
@@ -161,7 +164,7 @@ def reset_password(request, email_id):
         print request.POST
         email_id = base64.b64decode(email_id)
         print email_id
-        u = User.objects.get(username__exact=email_id) 
+        u = User.objects.get(email__exact=email_id) 
         u.set_password(request.POST['password'])
         u.is_active = 1
         u.save()

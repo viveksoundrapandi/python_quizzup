@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.db.models import Max
-from pyquiz.models import Questions 
+from pyquiz.models import Questions, CustomUser as User
 def get_user_details(user):
     user_details = {'user_profile':{}}
     user_details['user_profile'].update(User.objects.filter(id=user.id)[0].__dict__)
