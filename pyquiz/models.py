@@ -1,7 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import User
-
+from django.contrib.auth.models import User, AbstractUser
+from django.conf import settings
 # Create your models here.
+class CustomUser(AbstractUser):
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+    role = models.CharField(max_length = 100)
+
+    def get_username(self):
+        return self.email
+CustomUser._meta.get_field_by_name('email')[0]._unique=True
+
 class Questions(models.Model):
     id = models.AutoField(primary_key=True)
     question = models.TextField()
@@ -14,18 +23,15 @@ class Choices(models.Model):
     choice_3 = models.TextField(null = True)
     choice_4 = models.TextField(null = True)
     answer = models.CharField(max_length=255)
-class UserDetails(models.Model):
-    user_id = models.ForeignKey(User)
-    role = models.CharField(max_length = 100)
 class QuizHistory(models.Model):
     """
     Contains the last attended quiz id.
     """
-    user_id = models.ForeignKey(User)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
     week_id = models.PositiveIntegerField()
     
 class LeaderBoard(models.Model):
-    user_id = models.ForeignKey(User)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
     week_id = models.PositiveIntegerField()
     points = models.PositiveIntegerField()
     timestamp = models.DateTimeField(auto_now = True)    

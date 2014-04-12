@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 
 #cutom imports
 from python_quizzup import settings
-from pyquiz.models import Questions, Choices, LeaderBoard, UserDetails, QuizHistory
+from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory
 from pyquiz import utils
 @login_required
 def index(request):
@@ -134,9 +134,8 @@ def register(request):
             context['error']['username'] = 'Username Already taken :(' 
         else:
             new_user = User.objects.create_user(request.POST['username'], request.POST['username'], request.POST['password'], \
-                                                first_name=request.POST['first_name'], last_name=request.POST['last_name'])
+                                                first_name=request.POST['first_name'], last_name=request.POST['last_name'], role=request.POST['role'])
             new_user.is_active = 0
-            UserDetails(user_id=new_user, role=request.POST['role']).save()
             utils.send_mail_via_gmail('pyquiz/register-mail.html', {'domain':settings.DOMAIN, 'email_id':base64.b64encode(request.POST['username'])},\
                                     'PyQuiz:Welcome Aboard!', [request.POST['username']] \
                                 )

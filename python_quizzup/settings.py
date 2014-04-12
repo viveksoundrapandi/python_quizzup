@@ -63,7 +63,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'quizzup',
         'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': 'reverse',                  # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': 'localhost',          
     }
 }
@@ -100,3 +100,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DOMAIN = 'http://localhost:8000/'
+AUTH_USER_MODEL = 'pyquiz.CustomUser'
