@@ -7,7 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import EmailMultiAlternatives, send_mail, get_connection
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
-from django.db.models import Max
+from django.db.models import Max, Count
+from django.core.urlresolvers import reverse
 
 #cutom imports
 from python_quizzup import settings
@@ -20,6 +21,7 @@ def index(request):
     if latest_week:
         latest_week = latest_week[0]
         print latest_week
+
         last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
         print last_quiz
         context['week_id'] = latest_week['week_id'] if not last_quiz or last_quiz[0].week_id != latest_week['week_id'] else ''
@@ -31,6 +33,8 @@ def quiz(request, week_id):
     print week_id
     if request.method == "GET":
         last_quiz = QuizHistory.objects.filter(user_id = request.user.id)
+        if last_quiz:
+            last_quiz = last_quiz[0].week_id - 1
     else:
         last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
     print last_quiz
@@ -57,7 +61,7 @@ def quiz(request, week_id):
                 if value == Choices.objects.get(question_id = field).answer:
                     score += 15 + min(int(request.POST['t_' + field]), 10)*1.5
         LeaderBoard(user_id = request.user, week_id = week_id, points = score).save()
-        return HttpResponseRedirect("/pyquiz/leaderboard/weekly/")
+        return HttpResponseRedirect(reverse('leaderboard', args=('/overall',)))
 
 def login_user(request):
     context = {'error':{}}
@@ -70,7 +74,7 @@ def login_user(request):
             if user.is_active:
                 print("User is valid, active and authenticated")
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next','/pyquiz/'))
+                return HttpResponseRedirect(request.GET.get('next',reverse('index')))
             else:
                 print("The password is valid, but the account has been disabled!")
                 context['error']['general'] = 'The password is valid, but the account has been disabled!'
@@ -190,7 +194,32 @@ def forgot_password(request):
         """
         context['mail_sent'] = True
     return render(request,'pyquiz/forgot-password.html',context)
-
+def admin_manager(request):
+    context = {'data':{}}
+    if not request.user.is_superuser:
+        return render(request, 'pyquiz/404.html', {})
+    if request.method == "POST":
+        print request.POST
+        a=request.POST
+        question_obj = Questions(question=request.POST['question'], week_id=request.POST['week_id'])
+        question_obj.save()
+        choices_obj = Choices(question_id=question_obj, answer=request.POST[request.POST['answer']])
+        for choice in ('choice_1', 'choice_2', 'choice_3', 'choice_4'):
+            choices_obj.__setattr__(choice, request.POST.get(choice, None))
+        choices_obj.save()
+        return HttpResponseRedirect(reverse('admin'))
+    else:
+        last_quiz = QuizHistory.objects.all().aggregate(Max('week_id'))
+        if last_quiz['week_id__max']:
+            context['data']['week_id'] = last_quiz['week_id__max'] + 1
+        else:
+            context['data']['week_id'] = 1
+#            context['question_number'] = Questions.objects.filter(week_id = context['week_id']).annotate(max_question_id=Count('id')) \
+#                                            TO TEST THE NO WEEK_ID PRESENT IN QUESTIONS MODEL CASE
+        context['data']['question_number'] = Questions.objects.filter(week_id = context['data']['week_id']).count()
+        context['data']['question_number'] = context['data']['question_number'] + 1 if context['data']['question_number'] else 1
+    print context
+    return render(request,'pyquiz/admin.html',context)
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(settings.LOGIN_URL)

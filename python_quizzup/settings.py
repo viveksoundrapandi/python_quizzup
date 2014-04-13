@@ -47,7 +47,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'pyquiz.middleware.TemplateResponseMiddleware',
 )
 
 ROOT_URLCONF = 'python_quizzup.urls'
@@ -85,9 +84,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/media/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = ( 
-    BASE_DIR + "/media/",
+    BASE_DIR + "/static/",
 )
 TEMPLATE_DIRS = (
     BASE_DIR+'/templates',

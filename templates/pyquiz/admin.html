@@ -1,0 +1,66 @@
+{% extends 'pyquiz/base.html' %}
+{% block content %}
+<section class="content">
+                    <div class="row">
+                        <!-- right column -->
+                        <div class="col-md-12">
+                            <!-- general form elements disabled -->
+                            <div class="box box-warning">
+                                <div class="box-header">
+                                    <h3 class="box-title">Enter Question</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <form method="POST" action="" role="form">
+                                        {% csrf_token %}
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>Week ID</label>
+                                            <input type="text" disabled="" placeholder="{{ data.week_id }}" class="form-control">
+                                            <input type="hidden"  name="week_id" value="{{ data.week_id }}" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Question Number</label>
+                                            <input name="question_number" type="text" disabled="" placeholder="{{ data.question_number }}" class="form-control">
+                                        </div>
+                                        <!-- textarea -->
+                                        <div class="form-group">
+                                            <label>Enter Question here (codes must be wrapped in &lt;code&gt;&lt;/code&gt;)</label>
+                                            <textarea required data-error="Question is Mandatory" name="question" placeholder="Start typing the question" rows="3" class="form-control"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Choice 1</label>
+                                            <input name="choice_1" type="text" required placeholder="Enter Choice 1(Mandatory)" class="form-control" data-error="Choice 1 is Mandatory">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Choice 2</label>
+                                            <input name="choice_2" type="text" required placeholder="Enter Choice 2(Mandatory)" class="form-control"  data-error="Choice 2 is Mandatory">
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Choice 3</label>
+                                            <input name="choice_3" type="text"  placeholder="Enter Choice 3(leave empty if needed)" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Choice 4</label>
+                                            <input name="choice_4" type="text"  placeholder="Enter Choice 4(leave empty if needed)" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Select Answer</label>
+                                            <select name="answer" class="form-control">
+                                                <option value="choice_1">Choice 1</option>
+                                                <option value="choice_2">Choice 2</option>
+                                                <option value="choice_3">Choice 3</option>
+                                                <option value="choice_4">Choice 4</option>
+                                            </select>
+                                        </div>                                        
+                                        <div class="text-center">
+                                            <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div><!--/.col (right) -->
+                    </div>   <!-- /.row -->
+                </section>
+{% endblock content %}

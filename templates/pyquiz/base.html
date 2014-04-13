@@ -105,7 +105,7 @@
                     <ul class="sidebar-menu">
                         <li class="active">
                             <a href="{% url 'index' %}">
-                                <i class="fa fa-dashboard"></i> <span>Home</span>
+                                <i class="fa fa-home"></i> <span>Home</span>
                             </a>
                         </li>
                         <li>
@@ -115,7 +115,7 @@
                         </li>
                         <li>
                             <a href="{% url 'leaderboard' '/weekly/' last_week_id  %}">
-                                <i class="fa fa-bar-chart-o"></i> <span>Weekly Leaderboard</span>
+                                <i class="fa fa-table"></i> <span>Weekly Leaderboard</span>
                             </a>
                         </li>                        
                         <li>
@@ -123,6 +123,12 @@
                                 <i class="fa fa-bar-chart-o"></i> <span>Overall Leaderboard</span>
                             </a>
                         </li>   
+                        <li>
+                            <a href="{% url 'admin' %}">
+                                <i class="fa fa-flag-o"></i> <span>Add Questions</span>
+                            </a>
+                        </li>   
+
                         </li>
                     </ul>
                 </section>
