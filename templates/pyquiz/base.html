@@ -24,6 +24,9 @@
         <link href="/static/css/green.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="/static/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/png" href="/static/img/favicon.ico"/>
+        <link rel="shortcut icon" type="image/png" href="/static/img/favicon.ico"/>
 {% block page_styles %}
 {% endblock page_styles %}
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -124,6 +127,12 @@
                             </a>
                         </li>   
                         <li>
+                            <a data-target="#rules-modal" data-toggle="modal" href="#javascript:void(0);">
+                                <i class="fa fa-book"></i> <span>Rules</span><small class="badge pull-right bg-green">vital</small>
+                            </a>
+                        </li>   
+
+                        <li>
                             <a href="{% url 'admin' %}">
                                 <i class="fa fa-flag-o"></i> <span>Add Questions</span>
                             </a>
@@ -218,10 +227,54 @@
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-
+        <!-- Modal -->
+        <div class="modal fade" id="rules-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">PyQuiz Rules</h4>
+              </div>
+              <div class="modal-body">
+                <ol>
+                    <li>
+                        Quiz will be conducted every week.
+                    </li>
+                    <li>
+                        Questions will vary from 5-10.
+                    </li>
+                    <li>
+                        Each question can give you a maximum of 30 points.
+                    </li>
+                    <li>
+                        Every correct answer will be given 15 points irrespective of time.
+                    </li>
+                    <li>
+                        The remaining 15 points will be calculated on based on time taken to answer that question.
+                    </li>
+                    <li>
+                        You will be given 15 seconds for each question.
+                    </li>
+                    <li>
+                        If you answer within 10 or more seconds remaining you will be given full 15 time points.
+                    </li>
+                    <li>
+                        If you answer less than 10 seconds you will be given time left * 1.5 time points.
+                    </li>
+                    <li>
+                       Points will be totalled and updated to leaderboard immediately. 
+                    </li>
+                </ol>
+              </div>
+              <div class="modal-footer modal-footer2 text-center">
+                <button type="button" class="btn btn-inverse btn-lg" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- add new calendar event modal -->
 
-        <!-- Global variables(declaration only!!! -->
+        <!-- Global variables(declaration only)!!! -->
         <script type="text/javascript">
             var time_remaining;
         </script>

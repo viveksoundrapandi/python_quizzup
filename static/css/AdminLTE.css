@@ -1643,7 +1643,7 @@ body > .header .logo .icon {
 }
 .box > .loading-img {
   z-index: 1020;
-  background: transparent url('/media/img/ajax-loader1.gif') 50% 50% no-repeat;
+  background: transparent url('/static/img/ajax-loader1.gif') 50% 50% no-repeat;
 }
 /*
 Component: timeline
@@ -2187,7 +2187,7 @@ Component: timeline
 */
 /* ADD THIS CLASS TO THE <HTML> TAG */
 .lockscreen {
-  background: url(/media/img/blur-background09.jpg) repeat center center fixed;
+  background: url(/static/img/blur-background09.jpg) repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -2831,4 +2831,5 @@ body {
   margin-bottom: 0px;
 }
 .general-errors {color:#A94442;}
+.modal-footer2 {text-align:center;padding: 0 5px 10px 5px;}
 /* custom styling ends */

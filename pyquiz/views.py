@@ -14,6 +14,11 @@ from django.core.urlresolvers import reverse
 from python_quizzup import settings
 from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User
 from pyquiz import utils
+
+def home(request):
+    context = {}
+    return render(request,'pyquiz/home.html', context)
+
 @login_required
 def index(request):
     context = {}

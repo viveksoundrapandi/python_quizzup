@@ -11,4 +11,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^pyquiz/', include("pyquiz.urls")),
+    url(r'^/?$', 'pyquiz.views.home', name='home'),
 )

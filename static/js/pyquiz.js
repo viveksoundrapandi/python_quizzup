@@ -3,6 +3,13 @@ $(document).ready(function()
     var form_obj = $('form');
     var questions = $(".questions");
     var progress_bar = $("#progressTimer");
+    function show_modal()
+    {
+        var hash = window.location.hash.slice(1);
+        if( hash && hash === 'rules-modal' ) {
+            $('#' + hash).modal('show');
+        };
+    }
     function show_next_question(current_question)
     {
         var closest = current_question.closest('.questions');
@@ -60,4 +67,5 @@ $(document).ready(function()
             $(this).next().text('');
         });
     }
+    show_modal();
 });
