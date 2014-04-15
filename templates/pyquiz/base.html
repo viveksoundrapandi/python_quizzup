@@ -106,22 +106,22 @@
 
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="active">
+                        <li class="{% if current_url == 'index' %}active{% endif %}">
                             <a href="{% url 'index' %}">
                                 <i class="fa fa-home"></i> <span>Home</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="{% if current_url == 'edit-profile' %}active{% endif %}">
                             <a href="{% url 'edit-profile' %}">
                                 <i class="fa fa-edit"></i> <span>Edit Profile</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="{% if current_url == 'leaderboard' and current_url_args.board_type == 'weekly' %}active{% endif %}">
                             <a href="{% url 'leaderboard' '/weekly/' last_week_id  %}">
                                 <i class="fa fa-table"></i> <span>Weekly Leaderboard</span>
                             </a>
                         </li>                        
-                        <li>
+                        <li class="{% if current_url == 'leaderboard' and current_url_args.board_type != 'weekly' %}active{% endif %}">
                             <a href="{% url 'leaderboard' '/overall' %}">
                                 <i class="fa fa-bar-chart-o"></i> <span>Overall Leaderboard</span>
                             </a>
@@ -132,7 +132,7 @@
                             </a>
                         </li>   
 
-                        <li>
+                        <li class="{% if current_url == 'admin' %}active{% endif %}">
                             <a href="{% url 'admin' %}">
                                 <i class="fa fa-flag-o"></i> <span>Add Questions</span>
                             </a>
@@ -277,6 +277,7 @@
         <!-- Global variables(declaration only)!!! -->
         <script type="text/javascript">
             var time_remaining;
+            var interval;
         </script>
         <!-- jQuery 2.0.2 -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>

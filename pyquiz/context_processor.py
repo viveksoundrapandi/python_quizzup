@@ -1,5 +1,6 @@
 #from django.contrib.auth.models import User
 from django.db.models import Max
+from django.core.urlresolvers import resolve
 from pyquiz.models import Questions, CustomUser as User
 def get_user_details(user):
     user_details = {'user_profile':{}}
@@ -12,4 +13,6 @@ def add_extra_context(request):
         context['last_week_id'] = latest_week['week_id__max']
     if request.user.is_authenticated():
         context.update(get_user_details(request.user))
+    context['current_url'] = request.resolver_match.url_name
+    context['current_url_args'] = request.resolver_match.kwargs
     return context 
