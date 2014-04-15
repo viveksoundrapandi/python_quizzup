@@ -56,6 +56,7 @@ $(document).ready(function()
     if(questions.length)
     {
         $(" .questions input[type='radio']").on('ifChanged', function(event) {
+            window.clearInterval(interval);
             show_next_question($(this));
         });
         enable_progress_timer();

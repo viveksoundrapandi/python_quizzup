@@ -7,6 +7,7 @@
             var bar = $(this).find(".progress-bar");
             var start = new Date();
             var limit = settings.timeLimit * 1000;
+            interval = "";
             interval = window.setInterval(function() {
                 var elapsed = new Date() - start;
                 time_remaining = Math.floor((limit - elapsed)/1000);
