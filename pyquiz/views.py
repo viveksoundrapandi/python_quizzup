@@ -39,17 +39,24 @@ def quiz(request, week_id):
     if request.method == "GET":
         last_quiz = QuizHistory.objects.filter(user_id = request.user.id)
         if last_quiz:
-            last_quiz = last_quiz[0].week_id - 1
+            last_quiz[0].week_id -= 1
     else:
         last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
     print last_quiz
     latest_week = Questions.objects.all().values('week_id').order_by('-week_id')[0]
     print latest_week
 #    if not (last_quiz and week_id != last_quiz[0].week_id+1): #TEST INVALID WEEKID LOGIC
-    if (last_quiz and week_id != last_quiz[0].week_id+1) or str(latest_week['week_id'])!=week_id:
+    if (last_quiz and int(week_id) != last_quiz[0].week_id+1) or str(latest_week['week_id'])!=week_id:
         return render(request, 'pyquiz/404.html', {})
     if request.method == "GET":
-        QuizHistory(user_id=request.user, week_id=week_id).save()
+        quiz_obj = QuizHistory.objects.filter(user_id=request.user.id)
+        if quiz_obj:
+            quiz_obj = quiz_obj[0]
+        else:
+            quiz_obj =  QuizHistory(user_id=request.user)
+        quiz_obj.week_id = week_id
+        quiz_obj.save()
+        last_quiz = QuizHistory.objects.filter(user_id = request.user.id)
         questions = Questions.objects.filter(week_id = int(week_id)).order_by('?')
         print questions
         questions_set = []
