@@ -37,11 +37,10 @@ def index(request):
 def quiz(request, week_id):
     print week_id
     if request.method == "GET":
-        last_quiz = QuizHistory.objects.filter(user_id = request.user.id)
-        if last_quiz:
-            last_quiz[0].week_id -= 1
-    else:
-        last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
+        last_seen_quiz = QuizHistory.objects.filter(user_id = request.user.id)
+        if (last_seen_quiz and last_seen_quiz[0].week_id >= int(week_id)):
+            return render(request, 'pyquiz/404.html', {})
+    last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
     print last_quiz
     latest_week = Questions.objects.all().values('week_id').order_by('-week_id')[0]
     print latest_week
