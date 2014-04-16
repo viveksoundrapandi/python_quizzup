@@ -131,13 +131,13 @@
                                 <i class="fa fa-book"></i> <span>Rules</span><small class="badge pull-right bg-green">vital</small>
                             </a>
                         </li>   
-
+                        {% if user_profile.is_superuser %}
                         <li class="{% if current_url == 'admin' %}active{% endif %}">
                             <a href="{% url 'admin' %}">
                                 <i class="fa fa-flag-o"></i> <span>Add Questions</span>
                             </a>
                         </li>   
-
+                        {% endif %}
                         </li>
                     </ul>
                 </section>
@@ -253,7 +253,7 @@
                         The remaining 15 points will be calculated on based on time taken to answer that question.
                     </li>
                     <li>
-                        You will be given 15 seconds for each question.
+                        You will be given 20 seconds for each question.
                     </li>
                     <li>
                         If you answer within 10 or more seconds remaining you will be given full 15 time points.
@@ -263,6 +263,9 @@
                     </li>
                     <li>
                        Points will be totalled and updated to leaderboard immediately. 
+                    </li>
+                    <li>
+                        You will not be able to edit your answer, the one you choose first will be considered.
                     </li>
                 </ol>
               </div>

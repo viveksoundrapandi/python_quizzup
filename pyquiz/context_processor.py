@@ -5,6 +5,7 @@ from pyquiz.models import Questions, CustomUser as User
 def get_user_details(user):
     user_details = {'user_profile':{}}
     user_details['user_profile'].update(User.objects.filter(id=user.id)[0].__dict__)
+    user_details['user_profile']['is_superuser'] = user.is_superuser
     return user_details
 def add_extra_context(request):
     context = {}

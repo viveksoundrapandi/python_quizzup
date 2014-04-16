@@ -3,6 +3,8 @@ $(document).ready(function()
     var form_obj = $('form');
     var questions = $(".questions");
     var progress_bar = $("#progressTimer");
+    var question_title = $("#question_title");
+    var question_counter = 2;
     function show_modal()
     {
         var hash = window.location.hash.slice(1);
@@ -19,6 +21,7 @@ $(document).ready(function()
                 questions.hide();
                 if (next_question.index() != -1)
                 {
+                    question_title.text('Question ' + question_counter++);
                     next_question.show();
                     time_remaining = 0;
                     progress_bar.html('<div class="progress xs active progress-striped"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="12" width="100%" style="width: 100%;"></div></div>');

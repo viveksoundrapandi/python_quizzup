@@ -10,7 +10,7 @@
                             <div class="help-block with-errors general-errors">{{ error.general }}</div>
                         {% endif %}
                         <div class="form-group {% if error.general %} has-error {% endif %}">
-                            <input type="email" name="username" class="form-control" placeholder="User ID" required data-error="Bruh, that email address is invalid" />
+                            <input type="email" name="username" class="form-control" placeholder="Email ID" required data-error="Bruh, that email address is invalid" />
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group {% if error.general or error.username %} has-error {% endif %}">

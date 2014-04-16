@@ -69,8 +69,12 @@ def quiz(request, week_id):
         score = 0
         for field, value in request.POST.items():
             if not re.match('(csrfmiddlewaretoken)|(t_(\d+))', field):
+                print value,Choices.objects.get(question_id = field).answer
+                print value == Choices.objects.get(question_id = field).answer
                 if value == Choices.objects.get(question_id = field).answer:
+                    print score
                     score += 15 + min(int(request.POST['t_' + field]), 10)*1.5
+                    print score
         LeaderBoard(user_id = request.user, week_id = week_id, points = score).save()
         return HttpResponseRedirect(reverse('leaderboard', args=('/overall',)))
 
@@ -99,7 +103,7 @@ def show_leaderboard(request, board_type='overall', week_id=1):
     context = {}
     leaderboard = {}
     if board_type and board_type.lower() == 'weekly' and week_id:
-        leaderboard_objs = LeaderBoard.objects.filter(week_id = week_id)
+        leaderboard_objs = LeaderBoard.objects.filter(week_id = week_id).order_by('-points')
         leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_objs)}
         context['weekly'] = True
         context['hide_status'] = True
@@ -112,7 +116,7 @@ def show_leaderboard(request, board_type='overall', week_id=1):
                 leaderboard = {}
                 if leaderboard_new:
                     leaderboard_old_map = {item.user_id:{'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_old)}
-                    len_leaderboard_old_map = len(leaderboard_old_map) + 1
+                    len_leaderboard_old_map = len(leaderboard_new)
                     for rank,item in enumerate(leaderboard_new):
                         if not leaderboard.get(item.user_id):
                             leaderboard[item.user_id] = {'username':item.user_id.email,'points':item.points,'rank':rank + 1,'previous_rank':leaderboard_old_map.get(item.user_id,{'rank':len_leaderboard_old_map})['rank']}
