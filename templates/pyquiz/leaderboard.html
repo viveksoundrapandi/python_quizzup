@@ -54,7 +54,11 @@
         <script src="/static/js/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#leaderboard").dataTable();
+    $("#leaderboard").dataTable({
+        "bLengthChange": false,
+        "aaSorting": [[ 1, "desc" ]]
+    });
+
 });
 </script>
 {% endblock page_scripts %}
