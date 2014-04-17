@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 
 #cutom imports
 from python_quizzup import settings
-from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User
+from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User, UserAnswers
 from pyquiz import utils
 
 def home(request):
@@ -68,13 +68,18 @@ def quiz(request, week_id):
         print request.POST
         score = 0
         for field, value in request.POST.items():
-            if not re.match('(csrfmiddlewaretoken)|(t_(\d+))', field):
-                print value,Choices.objects.get(question_id = field).answer
-                print value == Choices.objects.get(question_id = field).answer
+            if not re.match('(csrfmiddlewaretoken)|(t_(\d+))|(question_(\d+))', field):
+#                print value,Choices.objects.get(question_id = field).answer
+#                print value == Choices.objects.get(question_id = field).answer
+                user_answer_obj = UserAnswers(user_id=request.user, question=request.POST['question_' + field], user_answer=value, week_id=week_id)
                 if value == Choices.objects.get(question_id = field).answer:
+                    user_answer_obj.is_correct = True
                     print score
                     score += 15 + min(int(request.POST['t_' + field]), 10)*1.5
                     print score
+                else:
+                    user_answer_obj.is_correct = False
+                user_answer_obj.save()
         LeaderBoard(user_id = request.user, week_id = week_id, points = score).save()
         return HttpResponseRedirect(reverse('leaderboard', args=('/overall',)))
 
@@ -197,18 +202,20 @@ def forgot_password(request):
         utils.send_mail_via_gmail('pyquiz/forgot-password-mail.html', {'domain':settings.DOMAIN, 'email_id':base64.b64encode(request.POST['username'])},\
                                     'PyQuiz:reset-password', [request.POST['username']] \
                                 )
-        """
-        html_content = render_to_string('pyquiz/forgot-password-mail.html', {'domain':settings.DOMAIN, 'email_id':base64.b64encode(request.POST['username'])}) 
-        text_content = strip_tags(html_content) # this strips the html, so people will have the text as well.
-        msg = EmailMultiAlternatives('PyQuiz:reset-password', text_content, 'vivekhas3@gmail.com',[request.POST['username']])
-        msg.attach_alternative(html_content, "text/html")
-        connection = get_connection()
-        connection.username='vivekhas3@gmail.com'
-        connection.password='g00gle_vivek'
-        connection.send_messages([msg,])
-        """
         context['mail_sent'] = True
     return render(request,'pyquiz/forgot-password.html',context)
+@login_required
+def show_summary(request):
+    context = {}
+    template = 'pyquiz/summary.html'
+    last_quiz = LeaderBoard.objects.all().aggregate(Max('week_id'))
+    if last_quiz['week_id__max']:
+        context['quiz_answers'] = UserAnswers.objects.filter(user_id=request.user.id, week_id=last_quiz['week_id__max']) 
+    else:
+        template = 'pyquiz/404.html'
+    print context
+    return render(request, template, context)
+
 def admin_manager(request):
     context = {'data':{}}
     if not request.user.is_superuser:

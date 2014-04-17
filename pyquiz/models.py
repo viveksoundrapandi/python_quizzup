@@ -37,3 +37,11 @@ class LeaderBoard(models.Model):
     week_id = models.PositiveIntegerField()
     points = models.PositiveIntegerField()
     timestamp = models.DateTimeField(auto_now = True)    
+
+class UserAnswers(models.Model):
+    id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
+    week_id = models.PositiveIntegerField()
+    question = models.TextField()
+    user_answer = models.CharField(max_length=255)
+    is_correct = models.NullBooleanField(null=True, blank=True)

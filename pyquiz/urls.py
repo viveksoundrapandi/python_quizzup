@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^forgot-password/?$', views.forgot_password, name='forgot-password'),
     url(r'^reset/(?P<email_id>(.*))/?$', views.reset_password, name='reset-password'),
     url(r'^verify/(?P<email_id>(.*))/?$', views.verify_password, name='verify-password'),
+    url(r'^summary/?$', views.show_summary, name='summary'),
     url(r'^admin/?$', views.admin_manager, name='admin'),
 )
 

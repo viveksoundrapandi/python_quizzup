@@ -130,7 +130,12 @@
                             <a data-target="#rules-modal" data-toggle="modal" href="#javascript:void(0);">
                                 <i class="fa fa-book"></i> <span>Rules</span><small class="badge pull-right bg-green">vital</small>
                             </a>
-                        </li>   
+                        </li>  
+                        <li class="{% if current_url == 'summary' %}active{% endif %}">
+                            <a href="{% url 'summary' %}">
+                                <i class="fa fa-flag-o"></i> <span>Last Quiz Review</span>
+                            </a>
+                        </li> 
                         {% if user_profile.is_superuser %}
                         <li class="{% if current_url == 'admin' %}active{% endif %}">
                             <a href="{% url 'admin' %}">

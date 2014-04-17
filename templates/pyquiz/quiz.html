@@ -18,6 +18,7 @@
                                         {% for question_set in questions_set %}
                                             <div id="Q{{ forloop.counter }}" class="questions" {% if not forloop.first %} style="display:none;" {% endif %}>
                                                 <input type="hidden" value="0" name="t_{{ question_set.question.id }}" />
+                                                <input type="hidden" value='{{ question_set.question.question }}' name="question_{{ question_set.question.id }}" />                    
                                                 {{ question_set.question.question|safe }}
                                                 <!-- radio -->
                                                 <div class="form-group"> 
