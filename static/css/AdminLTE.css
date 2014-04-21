@@ -2832,4 +2832,5 @@ body {
 }
 .general-errors {color:#A94442;}
 .modal-footer2 {text-align:center;padding: 0 5px 10px 5px;}
+#summary_head a, #text_timer {padding:3px; background-color:#27ae60; color:#ecf0f1;}
 /* custom styling ends */

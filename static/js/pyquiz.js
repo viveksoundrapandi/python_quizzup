@@ -6,6 +6,7 @@ $(document).ready(function()
     var question_title = $("#question_title");
     var question_counter = 2;
     var submitted = false;
+    var text_timer = $("#text_timer");
     function show_modal()
     {
         var hash = window.location.hash.slice(1);
@@ -39,6 +40,22 @@ $(document).ready(function()
                 }, 1000);
             }, 600);
     }
+    function enable_text_timer()
+    {
+        text_timer.countdown({
+        date: +(new Date) + 20000,
+        render: function(data) {
+          $(this.el).text(this.leadingZeros(data.sec, 2) + " seconds");
+        },
+        onEnd: function() {
+          $(this.el).addClass('ended');
+        }
+      });
+    }
+    function reset_text_timer()
+    {
+        text_timer.removeClass('ended').data('countdown').update(+(new Date) + 20000).start();
+    }
     function enable_progress_timer()
     {
         progress_bar.progressTimer({
@@ -56,6 +73,7 @@ $(document).ready(function()
                 }
             }
         });
+        reset_text_timer();
     }
     function inject_native_window()
     {
@@ -84,7 +102,7 @@ $(document).ready(function()
     var questions = $(".questions");
     if(questions.length)
     {
-        
+        enable_text_timer(); 
         $(" .questions input[type='radio']").on('ifChanged', function(event) {
             locked = true;
             window.clearInterval(interval);
