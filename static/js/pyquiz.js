@@ -5,6 +5,7 @@ $(document).ready(function()
     var progress_bar = $("#progressTimer");
     var question_title = $("#question_title");
     var question_counter = 2;
+    var submitted = false;
     function show_modal()
     {
         var hash = window.location.hash.slice(1);
@@ -32,6 +33,7 @@ $(document).ready(function()
                     }
                     else
                     {
+                        submitted=false;
                         $('#quiz-form').submit();
                     }
                 }, 1000);
@@ -40,7 +42,7 @@ $(document).ready(function()
     function enable_progress_timer()
     {
         progress_bar.progressTimer({
-            timeLimit: 13,
+            timeLimit: 20,
             warningThreshold: 7,
             dangerThreshold: 10,
             baseStyle: 'progress-bar-success',
@@ -55,6 +57,23 @@ $(document).ready(function()
             }
         });
     }
+    function inject_native_window()
+    {
+        $(".cancel_submit").live('click',function (e){
+            submitted=true;
+        });
+
+        window.onbeforeunload = function()
+        {
+            if(!submitted)
+            {
+                str = "Closing your browser window will terminate the current quiz and you can never comeback to this week's quiz :(";
+            return str;
+            }
+                    submitted=false;
+        }
+
+    }
     $('.box-body').on('click', '#take-quiz', function()
     {
         window.location.href = $(this).data('redirect-to');
@@ -65,6 +84,7 @@ $(document).ready(function()
     var questions = $(".questions");
     if(questions.length)
     {
+        
         $(" .questions input[type='radio']").on('ifChanged', function(event) {
             locked = true;
             window.clearInterval(interval);

@@ -133,7 +133,7 @@
                         </li>  
                         <li class="{% if current_url == 'summary' %}active{% endif %}">
                             <a href="{% url 'summary' %}">
-                                <i class="fa fa-flag-o"></i> <span>Last Quiz Review</span>
+                                <i class="fa fa-eye"></i> <span>Last Quiz Review</span>
                             </a>
                         </li> 
                         {% if user_profile.is_superuser %}
@@ -232,56 +232,7 @@
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-        <!-- Modal -->
-        <div class="modal fade" id="rules-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">PyQuiz Rules</h4>
-              </div>
-              <div class="modal-body">
-                <ol>
-                    <li>
-                        Quiz will be conducted every week.
-                    </li>
-                    <li>
-                        Questions will vary from 5-10.
-                    </li>
-                    <li>
-                        Each question can give you a maximum of 30 points.
-                    </li>
-                    <li>
-                        Every correct answer will be given 15 points irrespective of time.
-                    </li>
-                    <li>
-                        The remaining 15 points will be calculated on based on time taken to answer that question.
-                    </li>
-                    <li>
-                        You will be given 20 seconds for each question.
-                    </li>
-                    <li>
-                        If you answer within 10 or more seconds remaining you will be given full 15 time points.
-                    </li>
-                    <li>
-                        If you answer less than 10 seconds you will be given time left * 1.5 time points.
-                    </li>
-                    <li>
-                       Points will be totalled and updated to leaderboard immediately. 
-                    </li>
-                    <li>
-                        You will not be able to edit your answer, the one you choose first will be considered.
-                    </li>
-                </ol>
-              </div>
-              <div class="modal-footer modal-footer2 text-center">
-                <button type="button" class="btn btn-inverse btn-lg" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- add new calendar event modal -->
-
+        {% include 'pyquiz/rules-modal.html' %}
         <!-- Global variables(declaration only)!!! -->
         <script type="text/javascript">
             var time_remaining;

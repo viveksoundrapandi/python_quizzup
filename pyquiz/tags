@@ -1,0 +1,95 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AbstractUser	models.py	/^from django.contrib.auth.models import User, AbstractUser$/;"	i
+Choices	models.py	/^class Choices(models.Model):$/;"	c
+Choices	views.py	/^from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User$/;"	i
+Count	views.py	/^from django.db.models import Max, Count$/;"	i
+CustomUser	models.py	/^class CustomUser(AbstractUser):$/;"	c
+EmailMultiAlternatives	utils.py	/^from django.core.mail import EmailMultiAlternatives, send_mail, get_connection$/;"	i
+EmailMultiAlternatives	views.py	/^from django.core.mail import EmailMultiAlternatives, send_mail, get_connection$/;"	i
+HttpResponse	views.py	/^from django.shortcuts import render,HttpResponseRedirect, HttpResponse$/;"	i
+HttpResponseRedirect	views.py	/^from django.shortcuts import render,HttpResponseRedirect, HttpResponse$/;"	i
+LeaderBoard	models.py	/^class LeaderBoard(models.Model):$/;"	c
+LeaderBoard	views.py	/^from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User$/;"	i
+Max	context_processor.py	/^from django.db.models import Max$/;"	i
+Max	views.py	/^from django.db.models import Max, Count$/;"	i
+Questions	context_processor.py	/^from pyquiz.models import Questions, CustomUser as User$/;"	i
+Questions	models.py	/^class Questions(models.Model):$/;"	c
+Questions	views.py	/^from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User$/;"	i
+QuizHistory	models.py	/^class QuizHistory(models.Model):$/;"	c
+QuizHistory	views.py	/^from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User$/;"	i
+REQUIRED_FIELDS	models.py	/^    REQUIRED_FIELDS = ['username']$/;"	v	class:CustomUser
+TestCase	tests.py	/^from django.test import TestCase$/;"	i
+USERNAME_FIELD	models.py	/^    USERNAME_FIELD = 'email'$/;"	v	class:CustomUser
+User	context_processor.py	/^from pyquiz.models import Questions, CustomUser as User$/;"	i
+User	models.py	/^from django.contrib.auth.models import User, AbstractUser$/;"	i
+User	views.py	/^from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User$/;"	i
+add_extra_context	context_processor.py	/^def add_extra_context(request):$/;"	f
+admin	admin.py	/^from django.contrib import admin$/;"	i
+admin_manager	views.py	/^def admin_manager(request):$/;"	f
+answer	models.py	/^    answer = models.CharField(max_length=255)$/;"	v	class:Choices
+authenticate	views.py	/^from django.contrib.auth import authenticate, login, logout$/;"	i
+base64	views.py	/^import base64$/;"	i
+choice_1	models.py	/^    choice_1 = models.TextField()$/;"	v	class:Choices
+choice_2	models.py	/^    choice_2 = models.TextField()$/;"	v	class:Choices
+choice_3	models.py	/^    choice_3 = models.TextField(null = True)$/;"	v	class:Choices
+choice_4	models.py	/^    choice_4 = models.TextField(null = True)$/;"	v	class:Choices
+edit_profile	views.py	/^def edit_profile(request):$/;"	f
+forgot_password	views.py	/^def forgot_password(request):$/;"	f
+get_connection	utils.py	/^from django.core.mail import EmailMultiAlternatives, send_mail, get_connection$/;"	i
+get_connection	views.py	/^from django.core.mail import EmailMultiAlternatives, send_mail, get_connection$/;"	i
+get_user_details	context_processor.py	/^def get_user_details(user):$/;"	f
+get_username	models.py	/^    def get_username(self):$/;"	m	class:CustomUser
+home	views.py	/^def home(request):$/;"	f
+id	models.py	/^    id = models.AutoField(primary_key=True)$/;"	v	class:Questions
+include	urls.py	/^from django.conf.urls import patterns, include, url$/;"	i
+index	views.py	/^def index(request):$/;"	f
+internal_error	views.py	/^def internal_error(request):$/;"	f
+login	views.py	/^from django.contrib.auth import authenticate, login, logout$/;"	i
+login_required	views.py	/^from django.contrib.auth.decorators import login_required$/;"	i
+login_user	views.py	/^def login_user(request):$/;"	f
+logout	views.py	/^from django.contrib.auth import authenticate, login, logout$/;"	i
+logout_user	views.py	/^def logout_user(request):$/;"	f
+models	models.py	/^from django.db import models$/;"	i
+page_not_found	views.py	/^def page_not_found(request):$/;"	f
+patterns	urls.py	/^from django.conf.urls import patterns, include, url$/;"	i
+points	models.py	/^    points = models.PositiveIntegerField()$/;"	v	class:LeaderBoard
+question	models.py	/^    question = models.TextField()$/;"	v	class:Questions
+question_id	models.py	/^    question_id = models.ForeignKey('Questions')$/;"	v	class:Choices
+quiz	views.py	/^def quiz(request, week_id):$/;"	f
+re	views.py	/^import re$/;"	i
+register	templatetags/sub.py	/^register = template.Library()$/;"	v
+register	views.py	/^def register(request):$/;"	f
+render	views.py	/^from django.shortcuts import render,HttpResponseRedirect, HttpResponse$/;"	i
+render_to_string	utils.py	/^from django.template.loader import render_to_string$/;"	i
+render_to_string	views.py	/^from django.template.loader import render_to_string$/;"	i
+reset_password	views.py	/^def reset_password(request, email_id):$/;"	f
+resolve	context_processor.py	/^from django.core.urlresolvers import resolve$/;"	i
+reverse	views.py	/^from django.core.urlresolvers import reverse$/;"	i
+role	models.py	/^    role = models.CharField(max_length = 100)$/;"	v	class:CustomUser
+send_mail	utils.py	/^from django.core.mail import EmailMultiAlternatives, send_mail, get_connection$/;"	i
+send_mail	views.py	/^from django.core.mail import EmailMultiAlternatives, send_mail, get_connection$/;"	i
+send_mail_via_gmail	utils.py	/^def send_mail_via_gmail(template, context, subject, to):$/;"	f
+settings	models.py	/^from django.conf import settings$/;"	i
+settings	views.py	/^from python_quizzup import settings$/;"	i
+show_leaderboard	views.py	/^def show_leaderboard(request, board_type='overall', week_id=1):$/;"	f
+show_summary	views.py	/^def show_summary(request):$/;"	f
+strip_tags	utils.py	/^from django.utils.html import strip_tags$/;"	i
+strip_tags	views.py	/^from django.utils.html import strip_tags$/;"	i
+sub	templatetags/sub.py	/^def sub(value, arg):$/;"	f
+template	templatetags/sub.py	/^from django import template$/;"	i
+timestamp	models.py	/^    timestamp = models.DateTimeField(auto_now = True)    $/;"	v	class:LeaderBoard
+url	urls.py	/^from django.conf.urls import patterns, include, url$/;"	i
+urlpatterns	urls.py	/^urlpatterns = patterns('',$/;"	v
+user_id	models.py	/^    user_id = models.ForeignKey(settings.AUTH_USER_MODEL)$/;"	v	class:LeaderBoard
+user_id	models.py	/^    user_id = models.ForeignKey(settings.AUTH_USER_MODEL)$/;"	v	class:QuizHistory
+utils	views.py	/^from pyquiz import utils$/;"	i
+verify_password	views.py	/^def verify_password(request, email_id):$/;"	f
+views	urls.py	/^from pyquiz import views$/;"	i
+week_id	models.py	/^    week_id = models.PositiveIntegerField()$/;"	v	class:LeaderBoard
+week_id	models.py	/^    week_id = models.PositiveIntegerField()$/;"	v	class:Questions
+week_id	models.py	/^    week_id = models.PositiveIntegerField()$/;"	v	class:QuizHistory
