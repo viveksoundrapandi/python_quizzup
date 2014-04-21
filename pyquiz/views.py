@@ -68,7 +68,7 @@ def quiz(request, week_id):
         print request.POST
         score = 0
         for field, value in request.POST.items():
-            if not re.match('(csrfmiddlewaretoken)|(t_(\d+))|(question_(\d+))', field):
+            if not re.match('(csrfmiddlewaretoken)|(t_(\d+))|(question_(\d+))|(timeout_(\d+))', field):
 #                print value,Choices.objects.get(question_id = field).answer
 #                print value == Choices.objects.get(question_id = field).answer
                 user_answer_obj = UserAnswers(user_id=request.user, question=request.POST['question_' + field], user_answer=value, week_id=week_id)
@@ -222,8 +222,7 @@ def admin_manager(request):
         return render(request, 'pyquiz/404.html', {})
     if request.method == "POST":
         print request.POST
-        a=request.POST
-        question_obj = Questions(question=request.POST['question'], week_id=request.POST['week_id'])
+        question_obj = Questions(question=request.POST['question'], week_id=request.POST['week_id'], timeout=request.POST['timeout'])
         question_obj.save()
         choices_obj = Choices(question_id=question_obj, answer=request.POST[request.POST['answer']])
         for choice in ('choice_1', 'choice_2', 'choice_3', 'choice_4'):

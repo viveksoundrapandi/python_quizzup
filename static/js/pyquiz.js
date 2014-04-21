@@ -42,8 +42,9 @@ $(document).ready(function()
     }
     function enable_text_timer()
     {
+        var timeout = +questions.filter(":visible").find(":hidden").eq(1).val();
         text_timer.countdown({
-        date: +(new Date) + 20000,
+        date: +(new Date) + timeout*1000,
         render: function(data) {
           $(this.el).text(this.leadingZeros(data.sec, 2) + " seconds");
         },
@@ -52,14 +53,16 @@ $(document).ready(function()
         }
       });
     }
-    function reset_text_timer()
+    function reset_text_timer(timeout)
     {
-        text_timer.removeClass('ended').data('countdown').update(+(new Date) + 20000).start();
+        text_timer.removeClass('ended').data('countdown').update(+(new Date) + timeout*1000).start();
     }
     function enable_progress_timer()
     {
+        var timeout = +questions.filter(":visible").find(":hidden").eq(1).val();
+        console.log(timeout);
         progress_bar.progressTimer({
-            timeLimit: 20,
+            timeLimit: timeout,
             warningThreshold: 7,
             dangerThreshold: 10,
             baseStyle: 'progress-bar-success',
@@ -73,7 +76,7 @@ $(document).ready(function()
                 }
             }
         });
-        reset_text_timer();
+        reset_text_timer(timeout);
     }
     function inject_native_window()
     {

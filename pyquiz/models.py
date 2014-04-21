@@ -15,9 +15,9 @@ CustomUser._meta.get_field('username')._unique = False
 
 class Questions(models.Model):
     id = models.AutoField(primary_key=True)
-    question = models.TextField()
-    week_id = models.PositiveIntegerField()
-
+    question = models.TextField(null=True, blank=True)
+    week_id = models.PositiveIntegerField(null=True, blank=True)
+    timeout = models.IntegerField(null=True, blank=True)
 class Choices(models.Model):
     question_id = models.ForeignKey('Questions')
     choice_1 = models.TextField()
