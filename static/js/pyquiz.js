@@ -1,12 +1,12 @@
 $(document).ready(function()
 {
     var form_obj = $('form');
-    var questions = $(".questions");
-    var progress_bar = $("#progressTimer");
-    var question_title = $("#question_title");
+    var questions = $('.questions');
+    var progress_bar = $('#progressTimer');
+    var question_title = $('#question_title');
     var question_counter = 2;
     var submitted = false;
-    var text_timer = $("#text_timer");
+    var text_timer = $('#text_timer');
     function show_modal()
     {
         var hash = window.location.hash.slice(1);
@@ -42,11 +42,11 @@ $(document).ready(function()
     }
     function enable_text_timer()
     {
-        var timeout = +questions.filter(":visible").find(":hidden").eq(1).val();
+        var timeout = +questions.filter(':visible').find(':hidden').eq(1).val();
         text_timer.countdown({
         date: +(new Date) + timeout*1000,
         render: function(data) {
-          $(this.el).text(this.leadingZeros(data.sec, 2) + " seconds");
+          $(this.el).text(this.leadingZeros(data.sec, 2) + ' seconds');
         },
         onEnd: function() {
           $(this.el).addClass('ended');
@@ -59,7 +59,7 @@ $(document).ready(function()
     }
     function enable_progress_timer()
     {
-        var timeout = +questions.filter(":visible").find(":hidden").eq(1).val();
+        var timeout = +questions.filter(':visible').find(':hidden').eq(1).val();
         console.log(timeout);
         progress_bar.progressTimer({
             timeLimit: timeout,
@@ -80,7 +80,7 @@ $(document).ready(function()
     }
     function inject_native_window()
     {
-        $(".cancel_submit").live('click',function (e){
+        $('.cancel_submit').live('click',function (e){
             submitted=true;
         });
 
@@ -88,7 +88,7 @@ $(document).ready(function()
         {
             if(!submitted)
             {
-                str = "Closing your browser window will terminate the current quiz and you can never comeback to this week's quiz :(";
+                str = 'Closing your browser window will terminate the current quiz and you can never comeback to this week's quiz :(';
             return str;
             }
                     submitted=false;
@@ -102,11 +102,11 @@ $(document).ready(function()
     var form_obj = $('form');
     if(form_obj.length)
         form_obj.validator();
-    var questions = $(".questions");
+    var questions = $('.questions');
     if(questions.length)
     {
         enable_text_timer(); 
-        $(" .questions input[type='radio']").on('ifChanged', function(event) {
+        $(' .questions input[type='radio']').on('ifChanged', function(event) {
             locked = true;
             window.clearInterval(interval);
             show_next_question($(this));
@@ -121,4 +121,8 @@ $(document).ready(function()
         });
     }
     show_modal();
+    $('form').on('click', '#register-submit', function()
+    {
+        ga('send', 'event', 'form', 'submit', 'Registration-Complete');
+    });
 });
