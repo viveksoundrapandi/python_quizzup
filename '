@@ -25,26 +25,9 @@
                         </div>
                     </div>
                     <div class="footer">                                                               
-                        <button onClick="ga('send', 'event', 'form', 'submit', 'Login-Complete');" type="submit" class="btn bg-olive btn-block" >Sign me in</button>  
+                        <button type="submit" class="btn bg-olive btn-block">Sign me in</button>  
                         <p class="text-center" style="font-size:12px;" >or sign in with your existing accounts</p>
-                        <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-1">
-                                <a class="btn btn-social-icon btn-google-plus" href="/accounts/google/login/"><i class="fa fa-google-plus"></i></a>
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-1">
-                                <a class="btn btn-social-icon btn-linkedin" href="/accounts/linkedin_oauth2/login/"><i class="fa fa-linkedin"></i></a>                                   </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-1">
-                                <a class="btn btn-social-icon btn-github" href="/accounts/github/login/"><i class="fa fa-github"></i></a>
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-1">
-                                <a class="btn btn-social-icon btn-facebook" href="/accounts/facebook/login/"><i class="fa fa-facebook"></i></a>      
-                            </div>
-                        </div>
-                        <br/>
+                        <a class="btn btn-social-icon btn-google-plus" href="/accounts/google/login/"><i class="fa fa-google-plus"></i></a>                        
                         <p><a href="{% url 'forgot-password' %}">I forgot my password</a></p>
                         
                         <a href="{% url 'register' %}" class="text-center">Request a new membership</a>

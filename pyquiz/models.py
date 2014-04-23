@@ -9,6 +9,9 @@ class CustomUser(AbstractUser):
 
     def get_username(self):
         return self.email
+    class Meta:
+        swappable = 'AUTH_USER_MODEL'
+
 CustomUser._meta.get_field_by_name('email')[0]._unique=True
 CustomUser._meta.get_field('username')._unique = False
 

@@ -88,7 +88,7 @@ $(document).ready(function()
         {
             if(!submitted)
             {
-                str = 'Closing your browser window will terminate the current quiz and you can never comeback to this week's quiz :(';
+                str = 'Closing your browser window will terminate the current quiz and you can never comeback to this week&apos;s quiz :(';
             return str;
             }
                     submitted=false;
@@ -106,7 +106,7 @@ $(document).ready(function()
     if(questions.length)
     {
         enable_text_timer(); 
-        $(' .questions input[type='radio']').on('ifChanged', function(event) {
+        $(" .questions input[type='radio']").on('ifChanged', function(event) {
             locked = true;
             window.clearInterval(interval);
             show_next_question($(this));

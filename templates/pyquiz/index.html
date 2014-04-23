@@ -10,7 +10,7 @@
                                 <div class="box-body">
                                     Your Weekly Quiz is ready. Please click on the link below:
                                     <p>
-                                        <button type="button" class="btn btn-inverse" id="take-quiz" data-redirect-to="{% url 'quiz' week_id %}">Take the Quiz</button>
+                                        <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse" id="take-quiz" data-redirect-to="{% url 'quiz' week_id %}">Take the Quiz</button>
                                     </p>
                                 </div><!-- /.box-body -->
                                 <div class="box-footer">

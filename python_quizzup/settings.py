@@ -37,6 +37,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.linkedin_oauth2',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.facebook',
     'pyquiz',
 )
 
@@ -92,11 +101,50 @@ TEMPLATE_DIRS = (
     BASE_DIR+'/templates',
 )
 LOGIN_URL = '/pyquiz/login/'
+LOGIN_REDIRECT_URL = '/pyquiz/'
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    "django.core.context_processors.request",
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
     'pyquiz.context_processor.add_extra_context',
+)
+AUTHENTICATION_BACKENDS  = DEFAULT_SETTINGS.AUTHENTICATION_BACKENDS + (
+    # `allauth` specific authentication methods, such as login by e-mail
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DOMAIN = 'http://localhost:8000'
 AUTH_USER_MODEL = 'pyquiz.CustomUser'
+SITE_ID = 1
+#ACCOUNT_EMAIL_REQUIRED = True
+USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION  = "none"
+SOCIALACCOUNT_ADAPTER = 'pyquiz.social_adapter.MyAdapter'
+#ACCOUNT_AUTHENTICATION_METHOD  = "email"
+#ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
+#ACCOUNT_USER_MODEL_USERNAME_FIELD = True
+#ACCOUNT_UNIQUE_EMAIL  = True
+#SOCIALACCOUNT_QUERY_EMAIL  = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_PROVIDERS = \
+    { 'google':
+        { 'SCOPE': ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email' ],
+          'AUTH_PARAMS': { 'access_type': 'online' } },
+      'linkedin':
+        {'SCOPE': ['r_emailaddress'],
+       'PROFILE_FIELDS': ['id',
+                         'first-name',
+                         'last-name',
+                         'email-address',
+                         'picture-url',
+                         'public-profile-url']},
+    'facebook':
+       {'SCOPE': ['email',],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'METHOD': 'oauth2',
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False}
+    }
