@@ -36,7 +36,7 @@ $(document).ready(function()
                     }
                     else
                     {
-                        submitted=false;
+                        submitted=true;
                         $('#quiz-form').submit();
                     }
                 }, 1000);
