@@ -33,11 +33,11 @@
                                         <tbody>
                                             {% for item,value in leaderboard.items %}
                                                 <tr>
-                                                    <td>{{ value.username }}</td>
+                                                    <td>{% if value.first_name %}{{ value.first_name }}  {{ value.last_name }}{% else %}{{ value.username }}{% endif %}</td>
                                                     <td>{{ value.points }}</td>
                                                     <td>{{ value.rank }}</td>
                                                     {% if not hide_status %}
-                                                    <td>{% if value.rank_diff > 0 %}+{% else %}{% if value.rank_diff < 0 %}{% else %}&nbsp;{% endif %}{% endif %}{{ value.rank_diff }}<img src="/static/img/{% if value.rank_diff > 0 %}up{% else %}{% if value.rank_diff < 0 %}down{% else %}equal{% endif %}{% endif %}.png" /></td>
+                                                    <td>{% if value.rank_diff > 0 %}+{% else %}{% if value.rank_diff < 0 %}{% else %}&nbsp;{% endif %}{% endif %}{{ value.rank_diff }}<img width=16 height=16 src="/static/img/{% if value.rank_diff > 0 %}up{% else %}{% if value.rank_diff < 0 %}down{% else %}equal{% endif %}{% endif %}.png" /></td>
                                                     {% endif %}
                                                 </tr>
                                             {% endfor %}
