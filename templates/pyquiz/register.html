@@ -1,5 +1,8 @@
 {% extends 'pyquiz/base_static.html' %}
 {% block title %}Register{% endblock title %}
+{% block page_styles %}
+        <link href="/static/css/bootstrap-social.css" rel="stylesheet" >
+{% endblock page_styles %}
 {% block content %}
             <div class="form-box form-box-static" id="login-box">
                 {% if success %}
@@ -39,6 +42,25 @@
                     </div>
                     <div class="footer">                                                               
                         <button id="register-submit" type="submit" class="btn bg-olive btn-block">Register me</button>  
+                        <p class="text-center" style="font-size:12px;" >or sign in with your existing accounts</p>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1">
+                                <a class="btn btn-social-icon btn-google-plus" href="/accounts/google/login/"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1">
+                                <a class="btn btn-social-icon btn-linkedin" href="/accounts/linkedin_oauth2/login/"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1">
+                                <a class="btn btn-social-icon btn-github" href="/accounts/github/login/"><i class="fa fa-github"></i></a>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1">
+                                <a class="btn btn-social-icon btn-facebook" href="/accounts/facebook/login/"><i class="fa fa-facebook"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </form>
                 {% endif %}

@@ -94,7 +94,7 @@ def login_user(request):
             if user.is_active:
                 print("User is valid, active and authenticated")
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next',reverse('index')))
+                return HttpResponseRedirect(request.GET.get('next',reverse('index')) + '#whats-new-modal')
             else:
                 print("The password is valid, but the account has been disabled!")
                 context['error']['general'] = 'The password is valid, but the account has been disabled!'

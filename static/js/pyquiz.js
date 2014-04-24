@@ -10,8 +10,10 @@ $(document).ready(function()
     function show_modal()
     {
         var hash = window.location.hash.slice(1);
-        if( hash && hash === 'rules-modal' ) {
-            $('#' + hash).modal('show');
+        if( hash ) {
+            var target_modal = $('#' + hash);
+            if(target_modal.length)
+                target_modal.modal('show');
         };
     }
     function show_next_question(current_question)
@@ -80,7 +82,7 @@ $(document).ready(function()
     }
     function inject_native_window()
     {
-        $('.cancel_submit').live('click',function (e){
+        $('.cancel_submit').on('click',function (e){
             submitted=true;
         });
 
@@ -105,6 +107,7 @@ $(document).ready(function()
     var questions = $('.questions');
     if(questions.length)
     {
+        inject_native_window();
         enable_text_timer(); 
         $(" .questions input[type='radio']").on('ifChanged', function(event) {
             locked = true;
@@ -124,5 +127,9 @@ $(document).ready(function()
     $('form').on('click', '#register-submit', function()
     {
         ga('send', 'event', 'form', 'submit', 'Registration-Complete');
+    });
+    $('a.stop-jump').on('click', function(e)
+    {
+             e.preventDefault();
     });
 });

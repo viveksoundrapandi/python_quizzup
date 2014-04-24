@@ -65,7 +65,7 @@
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="/static/img/avatar3.png" class="img-circle" alt="User Image" />
+                                    <img src="{{ user_profile.email|fetch_gravatar:"75" }}" class="img-circle" alt="User Image" />
                                     <p>
                                         {{ user_profile.first_name }} - {{ user_profile.last_name }} <br/>{{ user_profile.role }}
                                         <small>Member since {{ user_profile.date_joined|date:'N Y' }}</small>
@@ -101,7 +101,7 @@
                         <div class="pull-left info">
                             <p>Hello, {{ user_profile.first_name }}</p>
 
-                            <a href="javascrript:void(0);"><i class="fa fa-circle text-success"></i> Online</a>
+                            <a href="" class="stop-jump"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
 
@@ -128,7 +128,7 @@
                             </a>
                         </li>   
                         <li>
-                            <a data-target="#rules-modal" data-toggle="modal" href="#javascript:void(0);">
+                            <a data-target="#rules-modal" data-toggle="modal" href="">
                                 <i class="fa fa-book"></i> <span>Rules</span><small class="badge pull-right bg-green">vital</small>
                             </a>
                         </li>  
@@ -137,6 +137,11 @@
                                 <i class="fa fa-eye"></i> <span>Last Quiz Review</span>
                             </a>
                         </li> 
+                        <li>
+                            <a data-target="#whats-new-modal" data-toggle="modal" href="">
+                                <i class="fa fa-question"></i> <span>What&apos; New?</span><small class="badge pull-right bg-green">New</small>
+                            </a>
+                        </li>
                         {% if user_profile.is_superuser %}
                         <li class="{% if current_url == 'admin' %}active{% endif %}">
                             <a href="{% url 'admin' %}">
@@ -234,6 +239,7 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
         {% include 'pyquiz/rules-modal.html' %}
+        {% include 'pyquiz/whats-new-modal.html' %}
         <!-- Global variables(declaration only)!!! -->
         <script type="text/javascript">
             var time_remaining;
