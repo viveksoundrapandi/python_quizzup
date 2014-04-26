@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('allauth.urls')),
     url(r'^pyquiz/', include("pyquiz.urls")),
     url(r'^/?$', 'pyquiz.views.home', name='home'),
+    url(r'^gen_list/?$', 'pyquiz.views.generate_list', name='users'),
 )

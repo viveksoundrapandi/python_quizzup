@@ -9,6 +9,7 @@ from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 from django.db.models import Max, Count
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import user_passes_test
 
 #cutom imports
 from python_quizzup import settings
@@ -241,6 +242,17 @@ def admin_manager(request):
         context['data']['question_number'] = context['data']['question_number'] + 1 if context['data']['question_number'] else 1
     print context
     return render(request,'pyquiz/admin.html',context)
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
+def generate_list(request):
+    users_list = User.objects.all()
+    email_ids = ''
+#    email_ids = ','.join([user.email for user in users_list])
+    utils.send_mail_via_gmail('pyquiz/users-list-mail.html', {},\
+                                    'PyQuiz:Users List', [user.email for user in users_list] \
+                                )
+    return HttpResponse("Mail Sent")
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(settings.LOGIN_URL)
