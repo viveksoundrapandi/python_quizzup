@@ -1,5 +1,6 @@
 import re
 import base64
+import json
 
 from django.shortcuts import render,HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -7,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import EmailMultiAlternatives, send_mail, get_connection
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
-from django.db.models import Max, Count
+from django.db.models import Max, Count, Sum
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import user_passes_test
 
@@ -82,7 +83,7 @@ def quiz(request, week_id):
                     user_answer_obj.is_correct = False
                 user_answer_obj.save()
         LeaderBoard(user_id = request.user, week_id = week_id, points = score).save()
-        return HttpResponseRedirect(reverse('leaderboard', args=('/overall',)))
+        return HttpResponseRedirect(reverse('leaderboard', args=('/weekly/' + week_id,)))
 
 def login_user(request):
     context = {'error':{}}
@@ -104,39 +105,72 @@ def login_user(request):
             print("The username and password were incorrect.")
             context['error']['general'] = 'The username and password were incorrect.'
     return render(request,'pyquiz/login.html',context)
+def get_leaderboard_stats():
+    last_quiz = LeaderBoard.objects.all().aggregate(Max('week_id'))
+    context = {}
+    leaderboard = {}
+    if last_quiz['week_id__max']:
+        leaderboard_old = LeaderBoard.objects.raw('select id,user_id_id,SUM(points) as points from pyquiz_leaderboard where week_id<%s group by user_id_id order by points desc', [last_quiz['week_id__max']])
+        leaderboard_new = LeaderBoard.objects.raw('select id,user_id_id,SUM(points) as points from pyquiz_leaderboard group by user_id_id order by points desc')
+        if leaderboard_old:
+            if leaderboard_new:
+                leaderboard_old_map = {item.user_id:{'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_old)}
+                len_leaderboard_old_map = len(list(leaderboard_new))
+                for rank,item in enumerate(leaderboard_new):
+                    if not leaderboard.get(item.user_id):
+                        leaderboard[item.user_id] = {'username':item.user_id.email,'points':item.points,'rank':rank + 1,'previous_rank':leaderboard_old_map.get(item.user_id,{'rank':len_leaderboard_old_map})['rank'], 'first_name':item.user_id.first_name, 'last_name':item.user_id.last_name}
+                        leaderboard[item.user_id]['rank_diff'] = leaderboard[item.user_id]['previous_rank'] - leaderboard[item.user_id]['rank']
+            else:
+                context['hide_status'] = True
+                leaderboard_objs = leaderboard_old
+                leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1, 'first_name':item.user_id.first_name, 'last_name':item.user_id.last_name} for rank, item in enumerate(leaderboard_objs)}
+        else:
+            context['hide_status'] = True
+            leaderboard_objs = leaderboard_new
+            leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1, 'first_name':item.user_id.first_name, 'last_name':item.user_id.last_name} for rank, item in enumerate(leaderboard_objs)}
+    return context, leaderboard
+
 @login_required
 def show_leaderboard(request, board_type='overall', week_id=1):
     context = {}
     leaderboard = {}
+    limit = int(request.GET.get('limit',0))
     if board_type and board_type.lower() == 'weekly' and week_id:
         leaderboard_objs = LeaderBoard.objects.filter(week_id = week_id).order_by('-points')
+        if limit:
+            leaderboard_objs = leaderboard_objs[:limit]
         leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1, 'first_name':item.user_id.first_name, 'last_name':item.user_id.last_name} for rank, item in enumerate(leaderboard_objs)}
         context['weekly'] = True
         context['hide_status'] = True
+    elif board_type and board_type.lower() == 'monthly':
+        #leaderboard_objs = LeaderBoard.objects.all().values('user_id').annotate(points=Sum('points')).order_by('-points')
+        leaderboard_objs = LeaderBoard.objects.raw('select id,user_id_id,sum(points) as points from (select * from pyquiz_leaderboard  order by week_id ) b group by user_id_id order by points desc')
+        if limit:
+            leaderboard_objs = list(leaderboard_objs)[:limit]
+        leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1, 'first_name':item.user_id.first_name, 'last_name':item
+.user_id.last_name} for rank, item in enumerate(leaderboard_objs)}
+        context['weekly'] = True
+        context['hide_status'] = True
     else:
-        last_quiz = LeaderBoard.objects.all().aggregate(Max('week_id'))
-        if last_quiz['week_id__max']:
-            leaderboard_old = LeaderBoard.objects.filter(week_id__lt = last_quiz['week_id__max']).order_by('-points')
-            leaderboard_new = LeaderBoard.objects.all().order_by('-points')        
-            if leaderboard_old:
-                leaderboard = {}
-                if leaderboard_new:
-                    leaderboard_old_map = {item.user_id:{'points':item.points,'rank':rank+1} for rank, item in enumerate(leaderboard_old)}
-                    len_leaderboard_old_map = len(leaderboard_new)
-                    for rank,item in enumerate(leaderboard_new):
-                        if not leaderboard.get(item.user_id):
-                            leaderboard[item.user_id] = {'username':item.user_id.email,'points':item.points,'rank':rank + 1,'previous_rank':leaderboard_old_map.get(item.user_id,{'rank':len_leaderboard_old_map})['rank'], 'first_name':item.user_id.first_name, 'last_name':item.user_id.last_name}
-                            leaderboard[item.user_id]['rank_diff'] = leaderboard[item.user_id]['previous_rank'] - leaderboard[item.user_id]['rank']
-                else:
-                    context['hide_status'] = True
-                    leaderboard_objs = leaderboard_old
-                    leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1, 'first_name':item.user_id.first_name, 'last_name':item.user_id.last_name} for rank, item in enumerate(leaderboard_objs)}
-            else:
-                context['hide_status'] = True
-                leaderboard_objs = leaderboard_new
-                leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1, 'first_name':item.user_id.first_name, 'last_name':item.user_id.last_name} for rank, item in enumerate(leaderboard_objs)}
+        if limit:
+            leaderboard_objs = LeaderBoard.objects.raw('select id,user_id_id,SUM(points) as points from pyquiz_leaderboard group by user_id_id order by points desc')
+            leaderboard_objs = list(leaderboard_objs)[:limit]
+            leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1, 'first_name':item.user_id.first_name, 'last_name':item.user_id.last_name} for rank, item in enumerate(leaderboard_objs)}
+            context['weekly'] = True
+            context['hide_status'] = True
+        else:
+            extra_context, leaderboard = get_leaderboard_stats()
+            context.update(extra_context)
     context['leaderboard'] = leaderboard
+    print context
     print leaderboard
+    if request.is_ajax():
+        leaderboard_json = {}
+        for key,value in context['leaderboard'].iteritems():
+            value['points'] = int(value['points'])
+            leaderboard_json[key.email] = value
+        context['leaderboard'] = leaderboard_json
+        return HttpResponse(json.dumps(context),mimetype="application/javascript")
     return render(request, 'pyquiz/leaderboard.html', context)
 
 def register(request):
