@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import user_passes_test
 
 #cutom imports
 from python_quizzup import settings
-from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User, UserAnswers
+from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User, UserAnswers, UserBadges, Badges
 from pyquiz import utils
 
 def home(request):
@@ -32,6 +32,15 @@ def index(request):
         last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
         print last_quiz
         context['week_id'] = latest_week['week_id'] if not last_quiz or last_quiz[0].week_id != latest_week['week_id'] else ''
+        badges = Badges.objects.all()
+        user_badges_obj = UserBadges.objects.filter(user_id=request.user.id)
+        user_badges = [ item.badge_id for item in user_badges_obj ]
+        context['user_badges_count'] = len(user_badges_obj)
+        context['badges'] = {}
+        for badge in badges:
+            context['badges'][badge.badge_id] = {'badge_details':badge}
+            if badge in user_badges:
+                context['badges'][badge.badge_id]['unlocked'] = True
     #    context['week_id'] = '' #TO TEST THE NO ACTIVE QUIZ LOGIC
     return render(request,'pyquiz/index.html', context)
 
@@ -287,6 +296,42 @@ def generate_list(request):
                                     'PyQuiz:Users List', [user.email for user in users_list] \
                                 )
     return HttpResponse("Mail Sent")
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
+def update_rewards(request):
+    badges = { badge.badge_id:badge for badge in Badges.objects.all()}
+
+    #BADGE 1
+    overall_winner = LeaderBoard.objects.raw('select id,user_id_id,SUM(points) as points from pyquiz_leaderboard group by user_id_id order by points desc limit 1')[0]
+    user_badges_obj = UserBadges.objects.filter(user_id=overall_winner.user_id_id)
+    user_badges = [ item.badge_id for item in user_badges_obj ]
+    if badges[1] not in user_badges:
+        UserBadges(user_id=overall_winner.user_id, badge_id=badges[1]).save()
+
+    #BADGE 2
+    last_quiz = LeaderBoard.objects.all().aggregate(Max('week_id'))
+    weekly_winner = LeaderBoard.objects.filter(week_id = last_quiz['week_id__max']).order_by('-points')[0]
+    user_badges_obj = UserBadges.objects.filter(user_id=weekly_winner.user_id)
+    user_badges = [ item.badge_id for item in user_badges_obj ]
+    if badges[2] not in user_badges:
+        UserBadges(user_id=weekly_winner.user_id, badge_id=badges[2]).save()
+
+    #BADGE 3
+    monthly_winner = LeaderBoard.objects.raw('select id,user_id_id,sum(points) as points from (select * from pyquiz_leaderboard  order by week_id ) b group by user_id_id order by points desc limit 1')[0]
+    user_badges_obj = UserBadges.objects.filter(user_id=monthly_winner.user_id_id)
+    user_badges = [ item.badge_id for item in user_badges_obj ]
+    if badges[3] not in user_badges:
+        UserBadges(user_id=motnhly_winner.user_id, badge_id=badges[3]).save()
+
+    #BADGE 4
+
+    #BADGE 5
+    if badges[5] not in user_badges:
+        overall_second_winner = LeaderBoard.objects.raw('select id,user_id_id,SUM(points) as points from pyquiz_leaderboard group by user_id_id order by points desc limit 1, 1')[0]
+        if overall_winner.points - overall_second_winner.points >50:
+            UserBadges(user_id=overall_winner.user_id, badge_id=badges[5]).save()
+    return HttpResponse("Rewards updated")
+
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(settings.LOGIN_URL)

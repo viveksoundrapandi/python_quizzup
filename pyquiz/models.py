@@ -48,3 +48,15 @@ class UserAnswers(models.Model):
     question = models.TextField()
     user_answer = models.CharField(max_length=255)
     is_correct = models.NullBooleanField(null=True, blank=True)
+
+class Badges(models.Model):
+    id = models.AutoField(primary_key=True)
+    badge_id = models.PositiveIntegerField()
+    badge_name = models.CharField(max_length=255)
+    badge_description = models.CharField(max_length=800)
+
+class UserBadges(models.Model):
+    id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
+    badge_id = models.ForeignKey(Badges)
+    is_new = models.NullBooleanField(null=True, blank=True)

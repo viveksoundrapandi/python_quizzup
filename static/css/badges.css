@@ -1,0 +1,304 @@
+/*Phase table admin css*/
+.ec-phasetbl{ width:100%; border:0px;}
+.ec-phasetbl th {font-size:14px; font-weight:bold;text-align:center; background:#CEDAE6; color: #294C72; padding:8px 5px 8px 5px; border:0px}
+.ec-phasetbl tr{ border:0px;  border:0px; color:#294C72;}
+.ec-phasetbl tr:nth-last-child(1){ background-color:#294C72; }
+.ec-phasetbl tr td{ border:0px; border-bottom: 1px solid #CBDBE8; padding: 8px 5px;  color:#294C72;}
+.heading{float:left; width:989px; background:#458FD8; text-transform:uppercase; color:#fff; text-align:center; font:bold 16px/140% Arial, Helvetica, sans-serif; padding:10px;}
+.main{width:1009px; margin:auto; padding:5px; background-color:#FEFFFF;}
+.midsection{float:left; width:969px; border:20px solid #458FD8; border-top:none; text-transform:uppercase; color:#000; text-align:center; font:bold 16px/140% Arial, Helvetica, sans-serif; padding:30px 0 30px 0}
+input#btnLogin,input#btnReset,input#btnUpdate{background: none repeat scroll 0 0 #458FD8;border: medium none;color: #FFFFFF;font-size: 13px;font-weight: bold;padding: 4px 6px;}
+tr.row{padding-bottom:10px}
+.cb label{margin-left: 5px;}
+.msgbox{font:bold 12px/140% Arial, Helvetica, sans-serif; height:10px;}
+input#txtUsername, input#txtPassword{padding:2px 4px; font-size:15px; line-height:18px}
+
+.ec-tourtbl{ width:100%; border:0px;}
+.ec-tourtbl th {font-size:14px; font-weight:bold;text-align:center; background:#CEDAE6; color: #294C72; padding:8px 5px 8px 5px; border:0px}
+.ec-tourtbl tr{ border:0px;  border:0px; color:#294C72;}
+.ec-tourtbl tr td{ border:0px; border-bottom: 1px solid #CBDBE8; padding: 8px 5px;  color:#294C72;}
+.ec-transpp{ position:absolute; width: 657px; left:26.3%; bottom: 200px; /*z-index:9999;*/}
+.ec-translitbx{background: url("/static/img/pop-up-bg.png") repeat scroll 0 0 transparent; position:fixed; top:0px; left:0px; width:100%; height:100%; z-index:888;/*z-index:88888;*/}
+.ec-transwrp{background:#fff; width:657px; border:1px solid #BEBEC0; padding-bottom:10px; overflow:hidden; position:absolute; left:23px; bottom:100px;z-index:15000;}
+.ec-transhdr{ padding:10px  15px; text-transform:uppercase;color: #242424;font-weight: bold;}
+.ec-transinout{overflow:hidden;border-bottom:1px solid #BEBEC0;}
+.ec-translft{border-right:1px solid #BEBEC0;}
+.ec-translft,.ec-transrgt{ float:left; width:328px;}
+.ec-translft div,.ec-transrgt div{ padding:3px 3px 3px 60px; overflow:hidden;}
+.ec-translft div:first-child,.ec-transrgt div:first-child{ background:#272727; color:#fff;}
+.ec-actegmd{ padding:10px; text-align:center; color:#242424; font-weight:bold;}
+.ec-actebtn { width:540px; margin:auto;}
+.ec-actebtn div:first-child{ margin-left:0px;}
+.ec-actebtn div{ float:left; width:157px; background:url("/static/img/submit.png") repeat-x scroll 0 0 transparent; margin-left:16px; padding:6px; text-align:center; color:#fff; font-weight:bold; text-transform:uppercase; cursor:pointer;}
+.ec-transdv span{ float:left; text-transform:capitalize; color:#242424; font-weight:bold;}
+.ec-transdv span:first-child{background:url("/static/img/sprite-icon.png") no-repeat scroll 0 0 transparent; width:15px; height:15px; margin-right:10px;}
+.ec-transdv span.ec-transGn{ background-position:-223px -27px;}
+.ec-transdv span.ec-transRd{ background-position:-223px -6px;}
+.bannercycle a {width:300px; float:left;} 
+
+/*====================================manage League=================================================*/
+.ec-manageLeagueDv{width:606px; border:1px solid #BDBEC2; margin:10px auto; background:#ededed;}
+.ec-manageLgeHeading{ background:#272727;color:#fff; padding:5px 10px; height:20px; font-weight:bold; font-size:15px; text-transform:uppercase;line-height:20px}
+.ec-stonedDv{ background:#c9c9c9;color:#272727; padding:4px 10px; height:20px; font-weight:bold; font-size:14px; text-transform:capitalize;line-height:20px}
+.ec-suspMainDv{width:586px; margin:0 auto;}
+.ec-suspMngrHeading{padding:8px 5px 8px 0px;border-bottom:1px solid #BEBEC0;color:#454648;font-weight:bold;margin:0px 4px 0px 0px;font-size:13px;margin-bottom:5px;text-transform:capitalize;}
+.ec-suspTxt{margin:0; padding:0;color:#666; font-size:12px;}
+.ec-suspTxtName{margin:10px 0 10px 0; padding:0;color:#666; font-size:12px;}
+.ec-supsSelect{font-size:12px;border:1px solid #BEBEC0; width:180px; height:24px; padding:2px}
+.ec-subbtnManager{background:url(/static/img/submit.png) repeat-x 0 0 transparent; height:28px; margin:0px 0px 0px 10px;  padding:0px 10px 0px 10px; line-height:27px; color:#fff; font-weight:bold; cursor:pointer; border:0;}
+.ec-subbtnManager a{color:#fff; text-decoration:none}
+.ec-subbtnManager input{ border:0; background-color: transparent; display:block;color:#fff;cursor:pointer }
+
+.ec-checkBxDv{margin:20px 0 0 0}
+.ec-checkBxDv label{margin-right:100px;margin-left:10px;}
+
+/*====================================Private League=================================================*/
+.ec-manageLeaguePvtDv{width:606px; border:1px solid #CCC; margin:10px auto 18px auto; border-bottom:0 }
+.ec-manageLgePvtHeading{ background:#262626;color:#fff; padding:5px 10px; height:20px; font-weight:bold; font-size:15px; text-transform:capitalize;line-height:20px}
+.ec-suspMainPvtDv{width:586px; margin:0 auto;}
+.ec-suspPvtMainDv .spanTh1{width:273px;height:22px; border-right:1px solid #BDBEC2;border-bottom:1px solid #BDBEC2;color:#000; font-weight:bold; font-size:14px; float:left; padding:5px 10px; line-height:21px}
+.ec-suspPvtMainDv .spanTh2{width:71px;height:22px; border-right:1px solid #BDBEC2;border-bottom:1px solid #BDBEC2;color:#000; font-weight:bold; font-size:14px; float:left; padding:5px 10px; line-height:21px}
+.ec-suspPvtMainDv .spanTh3{width:200px;height:22px;border-bottom:1px solid #BDBEC2;color:#000; font-weight:bold; font-size:14px; float:left; padding:5px 10px; line-height:21px}
+.ec-suspPvtMainDv .spanColmn1{cursor:pointer; width:273px;height:22px; border-right:1px solid #BDBEC2;border-bottom:1px solid #BDBEC2;color:#C7310E; font-weight:normal; font-size:14px; float:left; padding:5px 10px; line-height:21px;font-weight:600;}
+.ec-suspPvtMainDv .spanColmn1:hover{cursor:pointer;text-decoration:underline; width:273px;height:22px; border-right:1px solid #BDBEC2;border-bottom:1px solid #BDBEC2;color:#C7310E; font-weight:normal; font-size:14px; float:left; padding:5px 10px; line-height:21px;font-weight:600;}
+.ec-suspPvtMainDv .spanColmn2{width:71px;height:22px; border-right:1px solid #BDBEC2;border-bottom:1px solid #BDBEC2;color:#13396A; font-weight:normal; font-size:14px; float:left; padding:5px 10px; line-height:21px}
+.ec-suspPvtMainDv .spanColmn3{width:59px;height:22px; border-right:1px solid #BDBEC2;border-bottom:1px solid #BDBEC2;color:#13396A; font-weight:normal; font-size:14px; float:left; padding:5px 0px; line-height:21px; text-align:center}
+.ec-suspPvtMainDv .spanColmn4{width:140px;height:22px;border-bottom:1px solid #BDBEC2;color:#13396A; font-weight:normal; font-size:14px; float:left; padding:5px 10px; line-height:21px}
+.ec-delete{ background:url(/static/img/action-btn.png) 0 0 no-repeat; width:21px; height:19px; display:block; margin:auto;cursor:pointer;}
+.ec-update{ background:url(/static/img/action-btn.png) -25px 0 no-repeat; width:21px; height:19px; display:block; margin:auto;cursor:pointer;}
+.ec-scl-mail{ background:url(/static/img/social-sprite-new.png) 0 0 no-repeat; width:19px; height:20px; float:left; margin-right:12px;cursor:pointer;}
+.ec-scl-fb{ background:url(/static/img/social-sprite-new.png) -31px 0 no-repeat; width:19px; height:20px; float:left; margin-right:12px;cursor:pointer;}
+.ec-scl-gPlus{ background:url(/static/img/social-sprite-new.png) -62px 0 no-repeat; width:19px; height:20px; float:left; margin-right:12px;cursor:pointer;}
+.ec-scl-yahoo{ background:url(/static/img/social-sprite-new.png) -93px 0 no-repeat; width:19px; height:20px; float:left; margin-right:12px;cursor:pointer;}
+
+/*====join League =============*/
+.ec-joinLeagueDv{width:606px; border:1px solid #CADCEA;  margin:20px auto; }
+.ec-joinLgeHeading{ background:#262626;color:#fff; padding:5px 10px; height:20px; font-weight:bold; font-size:15px; text-transform:capitalize;line-height:20px}
+.ec-joinType{border-top:1px solid #CADCEA;/* height:35px;*/ padding:12px  10px 8px 10px }
+.ec-erromsg{padding:2px 0; clear:both}
+.ec-leagutxt{color:#000; font-weight:bold; font-size:14px; margin-right:10px}
+.ec-joinType label{ margin-right:20px;}
+.ec-joinType .ec-userNameDv label{ margin-right:10px;}
+.ec-userNameDv{ float:left;width:485px}
+.ec-btnDv{float:right;width:100px}
+.ec-joinbtn{background:url(/static/img/submit.png) repeat-x 0 0 transparent; height:23px; margin:0px 0px 0px 0px;  padding:5px 15px 0px 15px; color:#fff; font-weight:bold; cursor:pointer; float:right; border:0;cursor:pointer}
+.ec-joinbtn input{ border:0; background-color: transparent; display:block;color:#fff;cursor:pointer }
+
+
+.ec-joinbtnMngr{background:url(/static/img/submit.png) repeat-x 0 0 transparent; height:23px; margin:0px 0px 0px 0px;  padding:5px 15px 0px 15px; color:#fff; font-weight:bold; cursor:pointer; float:right; border:0;cursor:pointer}
+.ec-joinbtnMngr input{ border:0; background-color: transparent; display:block;color:#fff;cursor:pointer }
+
+
+
+.ec-joinType .text{border:1px solid #ACADAF; font-size:12px; width:144px; height:17px; padding:2px  2px 2px 4px}
+.ec-joinType .input{border:1px solid #ACADAF; font-size:12px; color:#ACADAF; width:144px; height:17px; padding:2px  2px 2px 4px}
+
+.ec-joinType p{margin:0; padding:0}
+.ec-intvites{border-top:1px solid #CADCEA;padding:12px  10px 10px 10px}
+.ec-intvites .input{border:1px solid  #ACADAF; width:463px; height:45px; float:left;font-size:12px; padding:3px 5px;color:#ACADAF; }
+.ec-intvites .text{border:1px solid  #ACADAF; width:463px; height:45px; float:left;font-size:12px; padding:3px 5px }
+.ec-intvitestxt{float:left;font-weight:bold; font-size:14px; margin-right:6px}
+.youtxt{font-size:12px; color:#ACADAF; margin:5px 0 0 67px; width:500px; float:left }
+.bld{ font-weight:bold}
+
+
+/*ec-avblty*/
+.ec-txtemail{overflow:hidden; margin-top:3px;}
+.ec-avblty > div{overflow:hidden;}
+
+
+/*popup player*/
+.ec-transwrp-PlyrPop{background:#fff url(/static/img/player-popBg.png) 0 0 repeat-x; position:absolute; left:23px; top:30px; width:609px; border:1px solid #BEBEC0; padding-bottom:10px; z-index:999;}
+.ec-cls{ background:url(/static/img/close-icon.png) no-repeat;width:24px; height:24px; margin-top:-25px; display:block; float:right; cursor:pointer}
+.ec-playerName{ padding:10px  15px; text-transform:uppercase;color: #272727;font-weight: bold; font-size:17px; text-transform:uppercase}
+.ec-PlayerNameDv{width:437px; float:left}
+.ec-jrsyDv{width:172px; float:right}
+.ec-jrsyBx{width:140px; height:175px; background:#c9c9c9; border:1px solid #5B5B5B; margin:18px auto 0 auto}
+.ec-tblHeader{ background:#242424;color:#fff; font-weight:bold; font-size:14px; padding:5px 0 5px 15px; text-transform:capitalize}
+.ec-tblcolumnDv{color:#272727; font-weight:bold; font-size:13px;padding:5px 0 5px 15px ; margin-bottom:20px}
+.ec-odd{ background:#F3F3F3}
+.ec-tblTh1,.ec-tblTh2,.ec-tblTh3,.ec-tblTh4{width:105px; float:left; }
+.ec-column1,.ec-column2,.ec-column3,.ec-column4{width:105px; float:left; }
+
+.marT15{margin-top:15px}
+.marT20{margin-top:20px}
+.ec-tblSubHeader{ background:#c9c9c9;padding:5px 0 5px 0px; color:#242424; text-transform:capitalize; font-weight:bold; font-size:13px}
+.ec-tblbody{color:#272727; width:609px;}/*height:130px;*/
+.ec-tblSubTh1,.ec-tblSubTh2,.ec-tblSubTh3,.ec-tblSubTh4,.ec-tblSubTh5,.ec-tblSubTh6{width:99px; float:left;; text-align:center; }
+.ec-columnPst1,.ec-columnPst2,.ec-columnPst3,.ec-columnPst4,.ec-columnPst5,.ec-columnPst6{width:99px; float:left; text-align:center;padding:5px 0 5px 0px;}
+
+.ec-totalDv{border-top:1px solid #D5D5D5;border-bottom:1px solid #D5D5D5; font-weight:bold;color:#272727}
+
+.ec-columnTotal1,.ec-columnTotal2,.ec-columnTotal3,.ec-columnTotal4,.ec-columnTotal5,.ec-columnTotal6{width:99px; float:left; text-align:center;padding:5px 0 5px 0px;}
+
+.ec-tblSubUpTh1{width:99px; float:left;; text-align:center;}
+.ec-tblSubUpTh2,.ec-tblSubUpTh3{width:255px; float:left;; text-align:center;}
+
+.ec-tblupbody{color:#242424;}
+
+.ec-columnUp1{width:99px; float:left; text-align:center;padding:5px 0 5px 0px;}
+.ec-columnUp2,.ec-columnUp3{width:255px; float:left; text-align:center;padding:5px 0 5px 0px;}
+
+.ec-oddNew{ background:#F3F3F3}
+.clr{clear:both}
+.ec-mainCon{ position:relative; /*z-index:90;margin-top:500px*/}
+
+
+/*league more plus*/
+.ec-lguMpls{ padding:2px 10px; color:#18385E; font-size:11px; overflow:hidden; margin-bottom:5px; border:0px!important;}
+.ec-lguMpls span {cursor: pointer;float: right!important; text-align:right;}
+
+
+/*Error Msg*/
+.ec-erromsg .ec-avbltyico.ec-avbltyno span:first-child {
+    background-position: -705px -18px;
+}
+
+.ec-erromsg .ec-avbltyico span:first-child {
+    background: url("/static/img/sprite-icon.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    float: left;
+    height: 20px;
+    margin-right: 6px;
+    width: 14px;
+}
+
+.marTBtn{margin:20px 0 20px 10px !important;}
+
+.ec-mrgright{margin-right:15px !important;}
+
+.ec-contacts
+{
+    border:solid 1px #CCC;
+    border-collapse:collapse;
+    width:100%;     
+}
+
+.ec-contacts td {border:solid 1px #CCC;}
+.ec-contacts th{border:solid 1px #CCC;background-color:#2569B4;color:#FFF;}
+.ec-oddRow{ background:#F0F4F7}
+.ec-evenRow{ background:#fff}
+
+.ec-center{margin:10px auto;width:120px;}
+
+
+
+/*************/
+.ec-inputLabel{ float:left;width:85px; font-weight:bold;color:#000;font-size:11px;}
+.ec-avbltytxt{ float:left}
+.ec-emcntryblock{width:300px;}
+.ec-excl-red{background: url("/static/img/sprite-icon.png") no-repeat  -281px -250px ;  cursor: pointer;height:18px;width: 19px;float:left;}
+.ec-excl-blue{background: url("/static/img/sprite-icon.png") no-repeat scroll -90px -16px transparent;cursor: pointer;height: 18px;width: 19px;}
+.marR5{ margin-right:2px;margin-top:5px;}
+.ec-excl-red-sml{background: url("/static/img/sprite-icon.png") no-repeat  -311px -253px ;  cursor: pointer;height:14px;width: 14px;float:left;}
+
+
+.league-head{font-weight:bold;font-size:13px;color:#272727;float:left;            }
+
+/*pop-up information*/
+.ec-infoPp{ padding:10px; width:250px;background:#35363A; color:#fff; position:absolute;}
+.ec-infoPp > div{ border:1px solid #333; position:relative;}
+.ec-infoPpTp{ background:#808080; padding:5px;}
+.ec-infoPpBt{background:#5F5F5F; overflow:hidden; padding:3px;}
+.ec-iprev{ margin-left:5px; cursor:pointer;padding-top:3px;}
+.ec-inext{ margin-left:15px; cursor:pointer; padding-top:3px;}
+.ec-skip{ margin-right:5px; background:#333333; padding:2px 10px; font-weight:bold; color:#898989; cursor:pointer;}
+.ec-infoAw{border-style: solid;border-width: 8px 7px;height: 0;position: absolute;width: 0; }
+.ec-infoAwlft{border-color: transparent transparent #383838 #383838;top:-27px; left:0px;}
+.ec-infoAwrgt{border-color: transparent #383838 #383838 transparent;top:-27px; right:0px;}
+
+.ec-infoPp1{ top:15px; left:87px; z-index:888;}
+.ec-infoPp2{ top:15px; left:205px; z-index:888;}
+.ec-infoPp3{ top:135px; left:110px; z-index:888;}
+.ec-infoPp4{ top:180px; left:230px; z-index:888;}
+.ec-infoPp5{ top:285px; left:240px; z-index:888;}
+.ec-infoPp6{ top:463px; left:380px; z-index:888;}
+.ec-infoPp7{ top:490px; left:300px; z-index:888;}
+.ec-infoPp8{ top:1440px; left:60px; z-index:888;}
+
+/*
+.ec-infoPp1{ top:135px; left:110px; z-index:888;}
+.ec-infoPp2{ top:180px; left:230px; z-index:888;}
+.ec-infoPp3{ top:285px; left:240px; z-index:888;}
+.ec-infoPp4{ top:463px; left:380px; z-index:888;}
+.ec-infoPp5{ top:490px; left:300px; z-index:888;}
+.ec-infoPp6{ top:1440px; left:60px; z-index:888;}
+*/
+
+.ec-subbtnipl {background:url(/static/img/manage-team.png) repeat-x 0 0 transparent; cursor: pointer;font-size: 14px;font-weight: bold;height: 54px;right: 102px;line-height: 30px;padding: 0 15px;position: absolute;text-align: center;text-transform: uppercase;top: 22px;width: 141px; }
+
+
+
+.league-head-new{font-weight:bold;font-size:13px;color:#272727; border-bottom:1px solid #BEBEC0;padding:8px 15px; display:block}
+.ec-manageLeagueDv-new{width:auto;margin:0px auto; background:#ededed;}
+.ec-manageLgeHeading-new{ background:#272727;color:#fff; padding:5px 10px; height:20px; font-weight:bold; font-size:15px; text-transform:uppercase;line-height:20px}
+.ec-suspMainDv-new{ margin:0 10px;}
+
+/*added on 30 May 2013*/
+
+.ec-badges-on,.ec-badges-off,.ec-gamedayChamp-on,.ec-gamedayChamp-off,.ec-captainFan-on,.ec-captainFan-off,.ec-cricketGuru-on,.ec-century-on,.ec-century-off,.ec-amigos-on,.ec-amigos-off,.ec-gamechanger-on,.ec-gamechanger-off,.ec-cup-on,.ec-cup-off,.ec-stratgies-on,.ec-stratgies-off,.ec-1000Pts-on,.ec-1000Pts-off,.ec-2500Pts-on,.ec-2500Pts-off,.ec-5000Pts-on,.ec-5000Pts-off,.ec-8000Pts-on,.ec-8000Pts-off,.ec-500Pts-on,.ec-500Pts-off,.ec-cricketGuru-off,.ec-lock-on,.ec-phase-on,.ec-phase-off,.ec-phase-conqueror-on,.ec-phase-conqueror-off{ background:url(/static/img/sprite-badges2.png) no-repeat}
+.ec-badges-on{ background-position:-616px -145px;width:71px;height:144px; margin:0 auto; position:relative;}
+.ec-badges-off{background-position:-516px -146px;width:71px;height:144px; margin:0 auto; position:relative;color:#989898 }
+
+.ec-gamedayChamp-on{ background-position:-12px -11px;width:32px;height:46px; position:absolute;top:84px; left:20px}
+.ec-gamedayChamp-off{background-position:-12px -82px;width:32px;height:46px; position:absolute; top:84px; left:20px }
+.ec-captainFan-on{background-position:-55px -10px;width:47px;height:40px; position:absolute; top:85px; left:14px }
+.ec-captainFan-off{background-position:-56px -82px;width:47px;height:40px; position:absolute; top:85px; left:14px }
+
+.ec-cricketGuru-on{background-position:-108px -12px;width:56px;height:47px; position:absolute; top:84px; left:9px; z-index:15 }
+.ec-cricketGuru-off{background-position:-108px -85px;width:56px;height:47px; position:absolute; top:84px; left:9px; z-index:15 }
+
+.ec-century-on{background-position:-244px -12px;width:35px;height:50px; position:absolute; top:84px; left:19px }
+.ec-century-off{background-position:-244px -82px;width:35px;height:50px; position:absolute; top:84px; left:19px }
+
+
+.ec-amigos-on{background-position:-166px -12px;width:62px;height:43px; position:absolute; top:79px; left:5px;z-index:10 }
+.ec-amigos-off{background-position:-166px -83px;width:62px;height:43px; position:absolute; top:79px; left:5px;z-index:10 }
+
+.ec-cup-on{background-position:-120px -11px;width:35px;height:50px; position:absolute; top:80px; left:20px; z-index:10 }
+.ec-cup-off{background-position:-120px -83px;width:35px;height:50px; position:absolute; top:80px; left:20px; z-index:10 }
+
+.ec-stratgies-on{background-position:-374px -139px;width:44px;height:60px; position:absolute; top:78px; left:16px }
+.ec-stratgies-off{background-position:-449px -138px;width:44px;height:60px; position:absolute; top:78px; left:16px }
+
+.ec-1000Pts-on{background-position:-374px -12px;width:47px;height:32px; position:absolute; top:93px; left:15px }
+.ec-1000Pts-off{background-position:-374px -82px;width:47px;height:32px; position:absolute; top:93px; left:15px }
+.ec-2500Pts-on{background-position:-512px -12px;width:50px;height:34px; position:absolute; top:93px; left:13px }
+.ec-2500Pts-off{background-position:-512px -82px;width:50px;height:34px; position:absolute; top:93px; left:13px }
+
+.ec-5000Pts-on{background-position:-373px -10px;width:50px;height:50px; position:absolute; top:91px; left:13px }
+.ec-5000Pts-off{background-position:-373px -82px;width:50px;height:50px; position:absolute; top:91px; left:13px }
+
+.ec-8000Pts-on{background-position:-441px -12px;width:50px;height:50px; position:absolute; top:91px; left:13px }
+.ec-8000Pts-off{background-position:-441px -82px;width:50px;height:50px; position:absolute; top:91px; left:13px }
+
+.ec-500Pts-on{background-position:-579px -12px;width:44px;height:32px; position:absolute; top:92px; left:18px }
+.ec-500Pts-off{background-position:-579px -82px;width:44px;height:32px; position:absolute; top:92px; left:18px }
+
+.ec-phase-on{background-position:-117px -220px;width:48px;height:53px; position:absolute; top:82px; left:14px }
+.ec-phase-off{background-position:-180px -220px;width:48px;height:53px; position:absolute; top:82px; left:14px }
+
+.ec-gamechanger-on{background-position:-633px -12px;width:60px;height:50px; position:absolute; top:82px; left:8px }
+.ec-gamechanger-off{background-position:-633px -82px;width:60px;height:50px; position:absolute; top:82px; left:8px; opacity:0.6;filter: alpha(opacity=60); }
+
+/*14March2014*/
+.ec-phase-conqueror-on{background-position:-123px -149px;width:36px;height:51px; position:absolute; top:82px; left:14px }
+.ec-phase-conqueror-off{background-position:-184px -149px;width:36px;height:51px; position:absolute; top:82px; left:14px }
+
+
+.ec-descp{ margin-top:8px;font-family: 'Open Sans',sans-serif;  font-size:16px; padding:0 5px; line-height:12px; text-align:center}
+.ec-descptxt{color:#919191}
+.ec-s-icon{ width:100%; height:21px; position:absolute;top:139px;left:0}
+.ec-lock-on{background-position:-54px -155px;width:54px;height:43px; position:absolute; top:84px; left:7px; z-index:5000}
+
+.ec-translitbxNew{background: url("/static/img/pop-up-bg.png") repeat scroll 0 0 transparent; position:fixed; top:0px; left:0px; width:100%; height:100%; z-index:88899;/*z-index:88888;*/}
+
+
+
+#PlayerPopUp{position:fixed !important;z-index:999 !important}
+.lb-prize-msg{border-top: 1px solid #CCCCCC;float: right;font-size: 10px;padding: 4px;text-align: right;width: 100%;text-transform:uppercase;background: none repeat scroll 0 0 #DEDEDE}
+.lb-prize-msg sup {font-size:16px;}
+
+/* Custom CSS starts */
+.bg-light-black {color:#DDFFFF; background-color:#333333;}
+.badge-break {margin-bottom:30px;}

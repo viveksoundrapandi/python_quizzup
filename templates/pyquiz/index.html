@@ -1,4 +1,8 @@
 {% extends 'pyquiz/base.html' %}
+{% block page_styles %}
+        <!-- badges.css -->
+        <link href="/static/css/badges.css" rel="stylesheet" type="text/css" />
+{% endblock page_styles %}
 {% block content %}
                             <!-- Primary box -->
                             <div class="box box-primary">
@@ -22,91 +26,138 @@
                                 </div>
                                 <div class="box-body">
                                     <p>You have completed all your quizzes till this week. Now, take a look at the below stats and carry on with your other work.</p><br/>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="box box-solid box-warning">
-                                                <div class="box-header">
-                                                    <h3 class="box-title">Overall Top 3</h3>
-                                                    <div class="box-tools pull-right">
-                                                        <button data-widget="collapse" class="btn btn-warning btn-sm"><i class="fa fa-minus"></i></button>
-                                                        <button data-widget="remove" class="btn btn-warning btn-sm"><i class="fa fa-times"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div id="overall" class="box-body">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <th style="width: 10px">#</th>
-                                                                <th>Pythonite</th>
-                                                                <th style="width: 10px">Points</th>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div><!-- /.box-body -->
-                                                <div class="box-footer">
-                                                    <a href="{% url 'leaderboard' '/overall' %}?limit=3" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
-                                                </div>
-                                            </div><!-- /.box -->
-                                        </div>
-                                        <div class="col-md-4">
-                                            <!-- Success box -->
-                                            <div class="box box-solid box-success">
-                                                <div class="box-header">
-                                                    <h3 class="box-title">Monthly Top 3</h3>
-                                                    <div class="box-tools pull-right">
-                                                        <button data-widget="collapse" class="btn btn-success btn-sm"><i class="fa fa-minus"></i></button>
-                                                        <button data-widget="remove" class="btn btn-success btn-sm"><i class="fa fa-times"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div id="monthly" class="box-body">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <th style="width: 10px">#</th>
-                                                                <th>Pythonite</th>
-                                                                <th style="width: 10px">Points</th>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div><!-- /.box-body -->
-                                                <div class="box-footer">
-                                                    <a href="{% url 'leaderboard' '/monthly' %}?limit=3" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
-                                                </div>
-                                            </div><!-- /.box -->
-                                        </div><!-- /.col -->
-                                        <div class="col-md-4">
-                                            <!-- Primary box -->
-                                            <div class="box box-solid box-primary">
-                                                <div class="box-header">
-                                                    <h3 class="box-title">Weekly Top 3</h3>
-                                                    <div class="box-tools pull-right">
-                                                        <button data-widget="collapse" class="btn btn-primary btn-sm"><i class="fa fa-minus"></i></button>
-                                                        <button data-widget="remove" class="btn btn-primary btn-sm"><i class="fa fa-times"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div id="weekly" class="box-body">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <th style="width: 10px">#</th>
-                                                                <th>Pythonite</th>
-                                                                <th style="width: 10px">Points</th>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div><!-- /.box-body -->
-                                                <div class="box-footer">
-                                                    <a href="{% url 'leaderboard' '/weekly/' last_week_id%}?limit=3" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
-                                                </div>
-                                            </div><!-- /.box -->
-                                        </div>
-                                    </div>
                                 </div><!-- /.box-body -->
-                                <div class="box-footer">
-                                    <p>Patience is the key...</p>
-                                </div><!-- /.box-footer-->
                                 {% endif %}
                             </div><!-- /.box -->
+                            <div class="row">
+                               <div class="col-md-12">
+                                  <!-- Default box -->
+                                  <div class="box box-info">
+                                      <div class="box-header">
+                                          <h3 class="box-title">LeaderBoard</h3>
+                                          <div class="box-tools pull-right">
+                                            <button class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                            <button class="btn btn-default btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+                                          </div>
+                                      </div>
+                                      <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="box box-solid box-warning">
+                                                    <div class="box-header">
+                                                        <h3 class="box-title">Overall Top 3</h3>
+                                                        <div class="box-tools pull-right">
+                                                            <button data-widget="collapse" class="btn btn-warning btn-sm"><i class="fa fa-minus"></i></button>
+                                                            <button data-widget="remove" class="btn btn-warning btn-sm"><i class="fa fa-times"></i></button>
+                                                        </div>
+                                                    </div>
+                                                    <div id="overall" class="box-body">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th style="width: 10px">#</th>
+                                                                    <th>Pythonite</th>
+                                                                    <th style="width: 10px">Points</th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div><!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        <a href="{% url 'leaderboard' '/overall' %}?limit=3" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                    </div>
+                                                </div><!-- /.box -->
+                                            </div>
+                                            <div class="col-md-4">
+                                                <!-- Success box -->
+                                                <div class="box box-solid box-success">
+                                                    <div class="box-header">
+                                                        <h3 class="box-title">Monthly Top 3</h3>
+                                                        <div class="box-tools pull-right">
+                                                            <button data-widget="collapse" class="btn btn-success btn-sm"><i class="fa fa-minus"></i></button>
+                                                            <button data-widget="remove" class="btn btn-success btn-sm"><i class="fa fa-times"></i></button>
+                                                        </div>
+                                                    </div>
+                                                    <div id="monthly" class="box-body">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th style="width: 10px">#</th>
+                                                                    <th>Pythonite</th>
+                                                                    <th style="width: 10px">Points</th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div><!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        <a href="{% url 'leaderboard' '/monthly' %}?limit=3" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                    </div>
+                                                </div><!-- /.box -->
+                                            </div><!-- /.col -->
+                                            <div class="col-md-4">
+                                                <!-- Primary box -->
+                                                <div class="box box-solid box-primary">
+                                                    <div class="box-header">
+                                                        <h3 class="box-title">Weekly Top 3</h3>
+                                                        <div class="box-tools pull-right">
+                                                            <button data-widget="collapse" class="btn btn-primary btn-sm"><i class="fa fa-minus"></i></button>
+                                                            <button data-widget="remove" class="btn btn-primary btn-sm"><i class="fa fa-times"></i></button>
+                                                        </div>
+                                                    </div>
+                                                    <div id="weekly" class="box-body">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th style="width: 10px">#</th>
+                                                                    <th>Pythonite</th>
+                                                                    <th style="width: 10px">Points</th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div><!-- /.box-body -->
+                                                    <div class="box-footer">
+                                                        <a href="{% url 'leaderboard' '/weekly/' last_week_id%}?limit=3" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                    </div>
+                                                </div><!-- /.box -->
+                                            </div>
+                                        </div> <!-- /.row -->
+                                      </div> <!-- /.box-body -->
+                                  </div><!-- /.box -->
+                               </div> <!-- / .col-md-12 -->
+                            </div> <!-- /.row -->
+                            <!--<h4 class="page-header">-->
+                                <!--Rewards Section-->
+                            <!--</h4>-->
+                            <div class="row">
+                               <div class="col-md-12">
+                                  <!-- Default box -->
+                                  <div class="box box-info">
+                                      <div class="box-header">
+                                          <h3 class="box-title">My Badges ({{ user_badges_count }}/{{ badges|length }}) Unlocked</h3>
+                                          <div class="box-tools pull-right">
+                                            <button class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                            <button class="btn btn-default btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+                                          </div>
+                                      </div>
+                                      <div class="box-body">
+                                        <div class="row">
+                                        {% for key, value in badges.iteritems %}
+                                            <div class="col-md-4 {% if forloop.counter|divisibleby:3 %}badge-break{% endif %}">
+                                                <div id="badge_{{ key }}" class="ec-bdg-frame-side">
+                                                    <div class="ec-badges-{% if value.unlocked %}on{% else %}off{% endif %}">
+                                                        <div class="ec-{{ value.badge_details.badge_name }}-{% if value.unlocked %}on{% else %}off{% endif %}"></div>
+                                                    </div>
+                                                    <div class="ec-descp">
+                                                        {{ value.badge_details.badge_description }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        </div> <!-- /.row -->
+                                      </div><!-- /.box-body -->
+                                  </div><!-- /.box -->
+                              </div> <!-- / .col-md-12 -->
+                            </div> <!-- /.row -->
+                            
 {% endblock content %}
 {% block page_scripts %}
 <script type='text/javascript'>
@@ -119,7 +170,7 @@
                 var target_html = "";
                 var index = 1;
                 $.each(data.leaderboard, function(key, item) {
-                    target_html += "<tr><td>" + index++ + "</td><td>" + item.first_name + "</td><td>" + item.points;
+                    target_html += "<tr><td>" + index++ + "</td><td>" + item.first_name + " " +  item.last_name + "</td><td>" + item.points;
                 });
                 target.find("table tbody").append(target_html);
             });

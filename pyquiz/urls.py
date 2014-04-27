@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^reset/(?P<email_id>(.*))/?$', views.reset_password, name='reset-password'),
     url(r'^verify/(?P<email_id>(.*))/?$', views.verify_password, name='verify-password'),
     url(r'^summary/?$', views.show_summary, name='summary'),
+    url(r'^update-rewards/?$', views.update_rewards, name='rewards'),
     url(r'^admin/?$', views.admin_manager, name='admin'),
 )
 
