@@ -177,7 +177,7 @@ def show_leaderboard(request, board_type='overall', week_id=1):
         leaderboard_json = {}
         for key,value in context['leaderboard'].iteritems():
             value['points'] = int(value['points'])
-            leaderboard_json[key.email] = value
+            leaderboard_json[value['rank']] = value
         context['leaderboard'] = leaderboard_json
         return HttpResponse(json.dumps(context),mimetype="application/javascript")
     return render(request, 'pyquiz/leaderboard.html', context)
