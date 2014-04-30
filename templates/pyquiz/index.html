@@ -25,7 +25,16 @@
                                     <h3 class="box-title">Congrats!!!</h3>
                                 </div>
                                 <div class="box-body">
+                                    {% if other_weeks %}
+                                    <p>You still have to complete the following quizzes to catch up with the normal world:</p>
+                                    {% for quiz_id in other_weeks %}
+                                        <p>
+                                            <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse" id="take-quiz" data-redirect-to="{% url 'quiz' quiz_id %}">Take the Quiz  {{ quiz_id }}</button>
+                                        </p>
+                                    {% endfor %}        
+                                    {% else %}
                                     <p>You have completed all your quizzes till this week. Now, take a look at the below stats and carry on with your other work.</p><br/>
+                                    {% endif %}
                                 </div><!-- /.box-body -->
                                 {% endif %}
                             </div><!-- /.box -->

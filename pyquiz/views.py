@@ -28,10 +28,14 @@ def index(request):
     if latest_week:
         latest_week = latest_week[0]
         print latest_week
-
         last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
         print last_quiz
         context['week_id'] = latest_week['week_id'] if not last_quiz or last_quiz[0].week_id != latest_week['week_id'] else ''
+        context['other_weeks'] = []
+        quiz_id_history = [ quiz.week_id for quiz in QuizHistory.objects.filter(user_id=request.user.id)]
+        for quiz_id in xrange(2,latest_week['week_id']):
+            if quiz_id not in quiz_id_history:
+                context['other_weeks'].append(quiz_id)
         badges = Badges.objects.all()
         user_badges_obj = UserBadges.objects.filter(user_id=request.user.id)
         user_badges = [ item.badge_id for item in user_badges_obj ]
@@ -48,25 +52,14 @@ def index(request):
 def quiz(request, week_id):
     print week_id
     if request.method == "GET":
-        last_seen_quiz = QuizHistory.objects.filter(user_id = request.user.id)
-        if (last_seen_quiz and last_seen_quiz[0].week_id >= int(week_id)):
+        last_seen_quiz = QuizHistory.objects.filter(user_id = request.user.id, week_id=week_id)
+        if last_seen_quiz:
             return render(request, 'pyquiz/404.html', {})
-    last_quiz = LeaderBoard.objects.filter(user_id = request.user.id).order_by('-week_id')
-    print last_quiz
     latest_week = Questions.objects.all().values('week_id').order_by('-week_id')[0]
     print latest_week
 #    if not (last_quiz and week_id != last_quiz[0].week_id+1): #TEST INVALID WEEKID LOGIC
-    if (last_quiz and int(week_id) != last_quiz[0].week_id+1) or str(latest_week['week_id'])!=week_id:
-        return render(request, 'pyquiz/404.html', {})
     if request.method == "GET":
-        quiz_obj = QuizHistory.objects.filter(user_id=request.user.id)
-        if quiz_obj:
-            quiz_obj = quiz_obj[0]
-        else:
-            quiz_obj =  QuizHistory(user_id=request.user)
-        quiz_obj.week_id = week_id
-        quiz_obj.save()
-        last_quiz = QuizHistory.objects.filter(user_id = request.user.id)
+        quiz_obj =  QuizHistory(user_id=request.user, week_id=week_id).save()
         questions = Questions.objects.filter(week_id = int(week_id)).order_by('?')
         print questions
         questions_set = []
@@ -92,6 +85,18 @@ def quiz(request, week_id):
                     user_answer_obj.is_correct = False
                 user_answer_obj.save()
         LeaderBoard(user_id = request.user, week_id = week_id, points = score).save()
+        badge_id = None
+        if score>=100 and score<200:
+            badge_id = 6
+        elif score>=200 and score<250:
+            badge_id = 7
+        elif score>=250:
+            badge_id = 8
+        if badge_id:
+                user_badges_obj = UserBadges.objects.filter(user_id=request.user.id)
+                user_badges = [ item.badge_id for item in user_badges_obj ]
+                if badge_id not in user_badges:
+                    UserBadges(user_id=request.user, badge_id=Badges.objects.get(badge_id=badge_id)).save()
         return HttpResponseRedirect(reverse('leaderboard', args=('/weekly/' + week_id,)))
 
 def login_user(request):
@@ -292,8 +297,9 @@ def generate_list(request):
     users_list = User.objects.all()
     email_ids = ''
 #    email_ids = ','.join([user.email for user in users_list])
-    utils.send_mail_via_gmail('pyquiz/users-list-mail.html', {},\
-                                    'PyQuiz:Users List', [user.email for user in users_list] \
+    for user in users_list:
+        utils.send_mail_via_gmail('pyquiz/users-list-mail.html', {},\
+                                    'PyQuiz:Users List', [user.email] \
                                 )
     return HttpResponse("Mail Sent")
 @user_passes_test(lambda u: u.is_superuser)
@@ -302,11 +308,12 @@ def update_rewards(request):
     badges = { badge.badge_id:badge for badge in Badges.objects.all()}
 
     #BADGE 1
-    overall_winner = LeaderBoard.objects.raw('select id,user_id_id,SUM(points) as points from pyquiz_leaderboard group by user_id_id order by points desc limit 1')[0]
-    user_badges_obj = UserBadges.objects.filter(user_id=overall_winner.user_id_id)
-    user_badges = [ item.badge_id for item in user_badges_obj ]
-    if badges[1] not in user_badges:
-        UserBadges(user_id=overall_winner.user_id, badge_id=badges[1]).save()
+    overall_winners = LeaderBoard.objects.raw('select id,user_id_id,SUM(points) as points from pyquiz_leaderboard group by user_id_id order by points desc limit 5')
+    for item in overall_winners:
+        user_badges_obj = UserBadges.objects.filter(user_id=item.user_id_id)
+        user_badges = [ item.badge_id for item in user_badges_obj ]
+        if badges[1] not in user_badges:
+            UserBadges(user_id=item.user_id, badge_id=badges[1]).save()
 
     #BADGE 2
     last_quiz = LeaderBoard.objects.all().aggregate(Max('week_id'))
@@ -321,10 +328,14 @@ def update_rewards(request):
     user_badges_obj = UserBadges.objects.filter(user_id=monthly_winner.user_id_id)
     user_badges = [ item.badge_id for item in user_badges_obj ]
     if badges[3] not in user_badges:
-        UserBadges(user_id=motnhly_winner.user_id, badge_id=badges[3]).save()
+        UserBadges(user_id=monthly_winner.user_id, badge_id=badges[3]).save()
 
     #BADGE 4
-
+    overall_winner = LeaderBoard.objects.raw('select id,user_id_id,SUM(points) as points from pyquiz_leaderboard group by user_id_id order by points desc limit 1')[0]
+    user_badges_obj = UserBadges.objects.filter(user_id=overall_winner.user_id_id)
+    user_badges = [ item.badge_id for item in user_badges_obj ]
+    if badges[4] not in user_badges:
+        UserBadges(user_id=overall_winner.user_id, badge_id=badges[4]).save()
     #BADGE 5
     if badges[5] not in user_badges:
         overall_second_winner = LeaderBoard.objects.raw('select id,user_id_id,SUM(points) as points from pyquiz_leaderboard group by user_id_id order by points desc limit 1, 1')[0]
