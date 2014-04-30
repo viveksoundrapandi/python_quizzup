@@ -33,7 +33,7 @@ def index(request):
         context['week_id'] = latest_week['week_id'] if not last_quiz or last_quiz[0].week_id != latest_week['week_id'] else ''
         context['other_weeks'] = []
         quiz_id_history = [ quiz.week_id for quiz in QuizHistory.objects.filter(user_id=request.user.id)]
-        for quiz_id in xrange(2,latest_week['week_id']):
+        for quiz_id in xrange(3,latest_week['week_id']):
             if quiz_id not in quiz_id_history:
                 context['other_weeks'].append(quiz_id)
         badges = Badges.objects.all()
