@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.db.models import Max, Count, Sum
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import user_passes_test
+from django.views.decorators.csrf import csrf_exempt
 
 #cutom imports
 from python_quizzup import settings
@@ -291,6 +292,15 @@ def admin_manager(request):
     print context
     return render(request,'pyquiz/admin.html',context)
 
+@login_required
+@csrf_exempt
+def feedback(request):
+    if request.method == "POST":
+        print request.POST
+        utils.send_mail_via_gmail('pyquiz/feedback-mail.html', {'username': request.POST['username'], 'message': request.POST['message']},\
+                                    'PyQuiz:Feedback', ['vivekhas3@gmail.com', 'pyquizcom@gmail.com'] \
+                                )
+    return HttpResponse("Success")
 @user_passes_test(lambda u: u.is_superuser)
 @login_required
 def generate_list(request):

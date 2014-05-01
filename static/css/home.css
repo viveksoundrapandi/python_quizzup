@@ -1,5 +1,5 @@
 @font-face {
-    font-family: "pfbeau";
+    font-family: 'Kaushan Script',cursive;
     font-weight: normal;
     font-style: normal;
 }
@@ -289,7 +289,7 @@ p {margin: 0;}
 	line-height: 1.136em;
 	margin: 0;
 	position: relative;
-	font-family: 'pfbeau';
+	font-family: 'Kaushan Script',cursive;
 	font-weight: normal;
 }
 

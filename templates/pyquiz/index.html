@@ -2,6 +2,7 @@
 {% block page_styles %}
         <!-- badges.css -->
         <link href="/static/css/badges.css" rel="stylesheet" type="text/css" />
+        <link href="/static/css/jquery.feedBackBox.css" rel="stylesheet" type="text/css">
 {% endblock page_styles %}
 {% block content %}
                             <!-- Primary box -->
@@ -16,6 +17,15 @@
                                     <p>
                                         <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse" id="take-quiz" data-redirect-to="{% url 'quiz' week_id %}">Take the Quiz</button>
                                     </p>
+                                    {% if other_weeks %}
+                                    <p>You still have to complete the following quizzes to catch up with the normal world:</p>
+                                    {% for quiz_id in other_weeks %}
+                                        <p>
+                                            <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse" id="
+take-quiz" data-redirect-to="{% url 'quiz' quiz_id %}">Take the Quiz  {{ quiz_id }}</button>
+                                        </p>
+                                    {% endfor %}                                    
+                                    {% endif %}
                                 </div><!-- /.box-body -->
                                 <div class="box-footer">
                                     <p>All the best!!!</p>
@@ -166,9 +176,11 @@
                                   </div><!-- /.box -->
                               </div> <!-- / .col-md-12 -->
                             </div> <!-- /.row -->
-                            
+                            <div id="feedback"></div>
+
 {% endblock content %}
 {% block page_scripts %}
+<script src="/static/js/jquery.feedBackBox.js"></script>
 <script type='text/javascript'>
     $(document).ready(function()
     {
@@ -187,6 +199,7 @@
         defer_load("{% url 'leaderboard' '/overall' %}?limit=3", $("#overall"));
         defer_load("{% url 'leaderboard' '/weekly/' last_week_id%}?limit=3", $("#weekly"));
         defer_load("{% url 'leaderboard' '/monthly' %}?limit=3", $("#monthly"));
+        $('#feedback').feedBackBox({'isUsernameEnabled':false,'userName':"{{user_profile.email}}", 'csrf_token':"{{ csrf_token }}"});
     });
 </script>
 {% endblock page_scripts %}
