@@ -21,8 +21,7 @@
                                     <p>You still have to complete the following quizzes to catch up with the normal world:</p>
                                     {% for quiz_id in other_weeks %}
                                         <p>
-                                            <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse" id="
-take-quiz" data-redirect-to="{% url 'quiz' quiz_id %}">Take the Quiz  {{ quiz_id }}</button>
+                                            <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse take-other-quiz"  data-redirect-to="{% url 'quiz' quiz_id %}">Take the Quiz  {{ quiz_id }}</button>
                                         </p>
                                     {% endfor %}                                    
                                     {% endif %}

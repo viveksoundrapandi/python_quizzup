@@ -101,6 +101,10 @@ $(document).ready(function()
     {
         window.location.href = $(this).data('redirect-to');
     });
+    $('.box-body').on('click', '.take-other-quiz,.quiz-review', function()
+    {
+        window.location.href = $(this).data('redirect-to');
+    });
     var form_obj = $('form');
     if(form_obj.length)
         form_obj.validator();

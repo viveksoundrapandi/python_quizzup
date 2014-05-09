@@ -3,45 +3,19 @@
                             <!-- Primary box -->
                             <div class="box box-primary">
                                 <div title="" data-toggle="tooltip" class="box-header" data-original-title="PyQuiz Information Bulletin">
-                                    <h3 class="box-title">Take Quiz</h3>
+                                    <h3 class="box-title">Choose Quiz</h3>
                                     
                                 </div>
                                 <div class="box-body">
-                                    <table cellspacing="10" WIDTH="100%">
-                                        <tr>
-                                            <th WIDTH="5%"> 
-                                            No
-                                            </th>
-                                            <th WIDTH="70%">
-                                            Question
-                                            </th>
-                                            <th WIDTH="10%">
-                                            Your Answer
-                                            </th>
-                                            <th WIDTH="15%">
-                                            Status
-                                            </th>
-                                        </tr>
-                                        {% for item in quiz_answers %}
-                                        <tr>
-                                            <td>
-                                            {{ forloop.counter }}
-                                            </td>
-                                            <td>
-                                            {{ item.question|safe }}
-                                            </td>
-                                            <td>
-                                            {{ item.user_answer }}
-                                            </td>
-                                            <td>
-                                            {% if item.is_correct %} <img width="69" height="69" src="/static/img/correct.jpg" /> {% else %} <img width="69" height="69" src="/static/img/wrong.jpg" /> {% endif %}
-                                            </td>
-                                        </tr>
-                                       {% endfor %}
-                                    </table>
+                                    <p>Please select a quiz number to review your answers:</p>
+                                    {% for week_id in quiz_list %}
+                                        <p>
+                                            <button  type="button" class="btn btn-inverse quiz-review" data-redirect-to="{% url 'review' week_id %}">Quiz  {{ week_id }}</button>
+                                        </p>
+                                    {% endfor %}                                    
                                 </div><!-- /.box-body -->
                                 <div class="box-footer">
-                                    <p>All the best!!!</p>
+                                    <p></p>
                                 </div><!-- /.box-footer-->
                             </div><!-- /.box -->
 {% endblock content %}

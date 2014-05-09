@@ -258,14 +258,18 @@ def forgot_password(request):
 def show_summary(request):
     context = {}
     template = 'pyquiz/summary.html'
-    last_quiz = LeaderBoard.objects.all().aggregate(Max('week_id'))
-    if last_quiz['week_id__max']:
-        context['quiz_answers'] = UserAnswers.objects.filter(user_id=request.user.id, week_id=last_quiz['week_id__max']) 
-    else:
-        template = 'pyquiz/404.html'
+    quiz_list = LeaderBoard.objects.all().filter(user_id=request.user.id)
+    context['quiz_list'] = [quiz.week_id for quiz in quiz_list]
     print context
     return render(request, template, context)
 
+@login_required
+def show_review(request,week_id):
+    context = {}
+    template = 'pyquiz/review.html'
+    context['quiz_answers'] = UserAnswers.objects.filter(user_id=request.user.id, week_id=week_id) 
+    print context
+    return render(request, template, context)
 def admin_manager(request):
     context = {'data':{}}
     if not request.user.is_superuser:
