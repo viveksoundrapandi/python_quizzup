@@ -15,13 +15,13 @@
                                 <div class="box-body">
                                     Your Weekly Quiz is ready. Please click on the link below:
                                     <p>
-                                        <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse" id="take-quiz" data-redirect-to="{% url 'quiz' week_id %}">Take the Quiz</button>
+                                        <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse spinner" id="take-quiz" data-redirect-to="{% url 'quiz' week_id %}">Take the Quiz</button>
                                     </p>
                                     {% if other_weeks %}
                                     <p>You still have to complete the following quizzes to catch up with the normal world:</p>
                                     {% for quiz_id in other_weeks %}
                                         <p>
-                                            <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse take-other-quiz"  data-redirect-to="{% url 'quiz' quiz_id %}">Take the Quiz  {{ quiz_id }}</button>
+                                            <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse take-other-quiz spinner"  data-redirect-to="{% url 'quiz' quiz_id %}">Take the Quiz  {{ quiz_id }}</button>
                                         </p>
                                     {% endfor %}                                    
                                     {% endif %}
@@ -38,7 +38,7 @@
                                     <p>You still have to complete the following quizzes to catch up with the normal world:</p>
                                     {% for quiz_id in other_weeks %}
                                         <p>
-                                            <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse" id="take-quiz" data-redirect-to="{% url 'quiz' quiz_id %}">Take the Quiz  {{ quiz_id }}</button>
+                                            <button onClick="ga('send', 'event', 'button', 'click', 'Take-Quiz');" type="button" class="btn btn-inverse spinner" id="take-quiz" data-redirect-to="{% url 'quiz' quiz_id %}">Take the Quiz  {{ quiz_id }}</button>
                                         </p>
                                     {% endfor %}        
                                     {% else %}
@@ -81,7 +81,7 @@
                                                         </table>
                                                     </div><!-- /.box-body -->
                                                     <div class="box-footer">
-                                                        <a href="{% url 'leaderboard' '/overall' %}" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                        <a class="spinner" href="{% url 'leaderboard' '/overall' %}" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
                                                     </div>
                                                 </div><!-- /.box -->
                                             </div>
@@ -107,7 +107,7 @@
                                                         </table>
                                                     </div><!-- /.box-body -->
                                                     <div class="box-footer">
-                                                        <a href="{% url 'leaderboard' '/monthly' %}" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                        <a class="spinner" href="{% url 'leaderboard' '/monthly' %}" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
                                                     </div>
                                                 </div><!-- /.box -->
                                             </div><!-- /.col -->
@@ -133,7 +133,7 @@
                                                         </table>
                                                     </div><!-- /.box-body -->
                                                     <div class="box-footer">
-                                                        <a href="{% url 'leaderboard' '/weekly/' last_week_id%}" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                        <a class="spinner" href="{% url 'leaderboard' '/weekly/' last_week_id%}" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
                                                     </div>
                                                 </div><!-- /.box -->
                                             </div>

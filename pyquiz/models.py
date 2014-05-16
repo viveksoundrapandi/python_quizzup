@@ -60,3 +60,7 @@ class UserBadges(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL)
     badge_id = models.ForeignKey(Badges)
     is_new = models.NullBooleanField(null=True, blank=True)
+class GCMRegistrations(models.Model):
+    id = models.AutoField(primary_key=True)
+    registration_id = models.TextField()    
+    timestamp = models.DateTimeField(auto_now_add=True)

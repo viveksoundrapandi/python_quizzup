@@ -7,7 +7,7 @@
             <div class="form-box form-box-static" id="login-box">
                 {% if success %}
                     We have sent you a verification mail, Please check your inbox.<br/>
-                    <a href="{% url 'index' %}">Go to HomePage</a>
+                    <a class="spinner" href="{% url 'index' %}">Go to HomePage</a>
                 {% else %}
 
                 <div class="header">Register</div>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="footer">                                                               
-                        <button id="register-submit" type="submit" class="btn bg-olive btn-block">Register me</button>  
+                        <button id="register-submit" type="submit" class="btn bg-olive btn-block spinner">Register me</button>  
                         <p class="text-center" style="font-size:12px;" >or sign in with your existing accounts</p>
                         <div class="row">
                             <div class="col-md-1"></div>

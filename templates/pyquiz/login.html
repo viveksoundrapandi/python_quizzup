@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div class="footer">                                                               
-                        <button onClick="ga('send', 'event', 'form', 'submit', 'Login-Complete');" type="submit" class="btn bg-olive btn-block" >Sign me in</button>  
+                        <button onClick="ga('send', 'event', 'form', 'submit', 'Login-Complete');" type="submit" class="btn bg-olive btn-block spinner" >Sign me in</button>  
                         <p class="text-center" style="font-size:12px;" >or sign in with your existing accounts</p>
                         <div class="row">
                             <div class="col-md-1 col-xs-1"></div>
@@ -45,9 +45,9 @@
                             </div>
                         </div>
                         <br/>
-                        <p><a href="{% url 'forgot-password' %}">I forgot my password</a></p>
+                        <p><a class="spinner" href="{% url 'forgot-password' %}">I forgot my password</a></p>
                         
-                        <a href="{% url 'register' %}" class="text-center">Request a new membership</a>
+                        <a href="{% url 'register' %}" class="text-center spinner">Request a new membership</a>
                     </div>
                 </form>
 

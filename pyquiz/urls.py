@@ -15,6 +15,8 @@ urlpatterns = patterns('',
     url(r'^summary/?$', views.show_summary, name='summary'),
     url(r'^review/(?P<week_id>\d+)/?$', views.show_review, name='review'),
     url(r'^feedback/?$', views.feedback, name='feedback'),
+    url(r'^gcm-save/(?P<registration_id>([A-Za-z0-9_-]*))/?$', views.save_gcm_id, name='gcm-save'),
+    url(r'^gcm-send/?$', views.push_message_to_gcm, name='gcm-send'),
     url(r'^update-rewards/?$', views.update_rewards, name='rewards'),
     url(r'^admin/?$', views.admin_manager, name='admin'),
 )

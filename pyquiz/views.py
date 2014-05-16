@@ -1,7 +1,8 @@
 import re
 import base64
 import json
-
+import urllib2
+import urllib
 from django.shortcuts import render,HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -15,9 +16,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 #cutom imports
 from python_quizzup import settings
-from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User, UserAnswers, UserBadges, Badges
+from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User, UserAnswers, UserBadges, Badges, GCMRegistrations
 from pyquiz import utils
-
+import config
 def home(request):
     context = {}
     return render(request,'pyquiz/home.html', context)
@@ -111,7 +112,8 @@ def login_user(request):
             if user.is_active:
                 print("User is valid, active and authenticated")
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next',reverse('index')) + '#whats-new-modal')
+                whats_new_modal = '' if request.META['HTTP_USER_AGENT'] in config.ALLOWED_APP_USER_AGENTS else '#whats-new-modal'
+                return HttpResponseRedirect(request.GET.get('next',reverse('index')) + whats_new_modal)
             else:
                 print("The password is valid, but the account has been disabled!")
                 context['error']['general'] = 'The password is valid, but the account has been disabled!'
@@ -356,7 +358,25 @@ def update_rewards(request):
         if overall_winner.points - overall_second_winner.points >50:
             UserBadges(user_id=overall_winner.user_id, badge_id=badges[5]).save()
     return HttpResponse("Rewards updated")
-
+def push_message_to_gcm(request):
+    """
+    """
+    registration_ids = [user.registration_id for user in GCMRegistrations.objects.all()]
+    json_data  = {"data" : {"message":"panni"}, "registration_ids": registration_ids}
+    url = 'https://android.googleapis.com/gcm/send'
+    myKey = "key=" + config.API_KEY
+    data = json.dumps(json_data)
+    headers = {'Content-Type': 'application/json', 'Authorization': myKey}
+    req = urllib2.Request(url, data, headers)
+    f = urllib2.urlopen(req)
+    response = json.loads(f.read())
+    assert False
+def save_gcm_id(request, registration_id):
+    """
+    """
+    if not GCMRegistrations.objects.filter(registration_id=registration_id):
+        GCMRegistrations(registration_id=registration_id).save()
+    return HttpResponse("Success")
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(settings.LOGIN_URL)

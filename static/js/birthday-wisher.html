@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Facebook Birthday Complements</title>
+    </head>
+    <body>
+        <label>Comment:</label>
+        <input type="tiext" name="comment" id="comment" />
+        <input type="button" id="post-comment" name="post-comment" value="post-comment" />
+        <!-- jQuery 2.0.2 -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <script>
+          function post_to_wish(response)
+          {
+            $.each(response.data, function(i,item){
+                console.log(item.id + "/comments");
+/*FB.api(
+    "/{object-id}/comments",
+    "POST",
+    {
+        "object": {
+            "message": "This is a test comment"
+        }
+    },
+    function (response) {
+      if (response && !response.error) {
+      }
+    }
+);            
+*/
+            });
+          }
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '526475997460965',
+              xfbml      : false,
+              version    : 'v2.0',
+              status    : true
+            });
+
+          };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+
+            function post_comment()
+            {
+            //    FB.login(function(){}, {scope: 'publish_actions'});
+            FB.login(function(){
+            FB.api(
+                "/me/feed?fields=created_time,from&until=1396224000&since=1396051200&limit=100",
+                function (response) {
+                  if (response && !response.error) {
+                    /* handle the result */
+                    post_to_wish(response);
+                  }
+                }
+
+            );
+            }, {scope: 'read_stream'});
+                alert($("#comment").val()); 
+                console.log($("#comment").val());
+            }
+            $(document).ready(function()
+            {
+            
+                $("#post-comment").on("click",  post_comment);
+
+            });
+        </script>        
+    </body>
+</html>

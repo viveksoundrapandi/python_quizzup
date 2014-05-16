@@ -10,7 +10,7 @@
                                     <p>Please select a quiz number to review your answers:</p>
                                     {% for week_id in quiz_list %}
                                         <p>
-                                            <button  type="button" class="btn btn-inverse quiz-review" data-redirect-to="{% url 'review' week_id %}">Quiz  {{ week_id }}</button>
+                                            <button  type="button" class="btn btn-inverse quiz-review spinner" data-redirect-to="{% url 'review' week_id %}">Quiz  {{ week_id }}</button>
                                         </p>
                                     {% endfor %}                                    
                                 </div><!-- /.box-body -->
