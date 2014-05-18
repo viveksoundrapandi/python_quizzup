@@ -21,11 +21,18 @@ import django.conf.global_settings as DEFAULT_SETTINGS
 SECRET_KEY = ')xo#6zl=i$q4)vxlq1-v(ny(@9igwli74_2qsppjf!39i-8(pz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+ADMINS = (('pyquiz', 'pyquizcom@gmail.com'), ('vivek.s', 'vivek.s@global-analytics.com'))
+SERVER_EMAIL = 'django@pyquiz.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'pyquizcom@gmail.com'
+EMAIL_HOST_PASSWORD = 'pyqui_Z!23'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', '*']
 
 
 # Application definition
@@ -150,3 +157,44 @@ SOCIALACCOUNT_PROVIDERS = \
         'LOCALE_FUNC': 'path.to.callable',
         'VERIFIED_EMAIL': False}
     }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/tmp/debug.log',
+            'formatter': 'verbose'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'propagate': True,
+            'level': 'DEBUG',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'pyquiz': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        }
+    }
+}    

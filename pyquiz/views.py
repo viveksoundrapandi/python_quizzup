@@ -13,14 +13,18 @@ from django.db.models import Max, Count, Sum
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.csrf import csrf_exempt
+import logging
 
 #cutom imports
 from python_quizzup import settings
 from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User, UserAnswers, UserBadges, Badges, GCMRegistrations
 from pyquiz import utils
 import config
+logger = logging.getLogger(__name__)
+
 def home(request):
     context = {}
+    logger.debug("this is a debug message!")
     return render(request,'pyquiz/home.html', context)
 
 @login_required
@@ -312,10 +316,10 @@ def feedback(request):
 def generate_list(request):
     users_list = User.objects.all()
     email_ids = ''
-#    email_ids = ','.join([user.email for user in users_list])
-    for user in users_list:
-        utils.send_mail_via_gmail('pyquiz/users-list-mail.html', {},\
-                                    'PyQuiz:Users List', [user.email] \
+    email_ids = [user.email for user in users_list]
+#    for user in users_list:
+    utils.send_mail_via_gmail('pyquiz/users-list-mail.html', {},\
+                                    'PyQuiz:Users List', email_ids \
                                 )
     return HttpResponse("Mail Sent")
 @user_passes_test(lambda u: u.is_superuser)
