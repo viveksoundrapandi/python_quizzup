@@ -21,7 +21,7 @@ import django.conf.global_settings as DEFAULT_SETTINGS
 SECRET_KEY = ')xo#6zl=i$q4)vxlq1-v(ny(@9igwli74_2qsppjf!39i-8(pz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ADMINS = (('pyquiz', 'pyquizcom@gmail.com'), ('vivek.s', 'vivek.s@global-analytics.com'))
 SERVER_EMAIL = 'django@pyquiz.com'
 EMAIL_HOST = 'smtp.gmail.com'
