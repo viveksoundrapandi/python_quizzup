@@ -14,10 +14,19 @@ $(function() {
 
         //If window is small enough, enable sidebar push menu
         if ($(window).width() <= 992) {
-            $('.row-offcanvas').toggleClass('active');
-            $('.left-side').removeClass("collapse-left");
-            $(".right-side").removeClass("strech");
-            $('.row-offcanvas').toggleClass("relative");
+            if(side_menu.hasClass('relative'))
+            {
+                side_menu_right.animate({right: '-=220'},500);
+                side_menu_left.animate({left: '-=220'},500,
+                function(){side_menu.removeClass("relative");});
+            }
+            else
+            {
+                side_menu.addClass("relative");
+                side_menu_right.animate({right: '+=220'},500);
+                side_menu_left.animate({left: '+=220'},500);
+            }
+            
         } else {
             //Else, enable content streching
             $('.left-side').toggleClass("collapse-left");
