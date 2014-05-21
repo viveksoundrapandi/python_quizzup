@@ -319,7 +319,7 @@ def generate_list(request):
     email_ids = [user.email for user in users_list]
 #    for user in users_list:
     utils.send_mail_via_gmail('pyquiz/users-list-mail.html', {},\
-                                    'PyQuiz:Users List', email_ids \
+                                    'PyQuiz:Quiz Ready!', email_ids \
                                 )
     return HttpResponse("Mail Sent")
 @user_passes_test(lambda u: u.is_superuser)
@@ -366,7 +366,7 @@ def push_message_to_gcm(request):
     """
     """
     registration_ids = [user.registration_id for user in GCMRegistrations.objects.all()]
-    json_data  = {"data" : {"message":"panni"}, "registration_ids": registration_ids}
+    json_data  = {"data" : {"message":"panni", "title":"PyQuiz"}, "registration_ids": registration_ids}
     url = 'https://android.googleapis.com/gcm/send'
     myKey = "key=" + config.API_KEY
     data = json.dumps(json_data)

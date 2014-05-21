@@ -251,6 +251,9 @@
             var interval;
             var locked;
             var current_url = "{{ current_url }}";
+            var side_menu;
+            var side_menu_right;
+            var side_menu_left;
         </script>
         <!-- jQuery 2.0.2 -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
@@ -295,6 +298,8 @@
         </script>
         <!-- PyQuiz App -->
         <script src="/static/js/pyquiz.js" type="text/javascript"></script>
+         <script src="http://stephband.info/jquery.event.move/js/jquery.event.move.js"></script>
+         <script src="/static/js/jquery.event.swipe.js"></script>
         {% if is_app %}
         <script src="/static/js/pyquiz_android.js" charset="utf-8" type="text/javascript"></script>
         {% include 'plugins/global_functions.html' %}

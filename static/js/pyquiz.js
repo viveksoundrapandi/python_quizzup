@@ -1,3 +1,21 @@
+function show_left_menu(e)
+{
+    if(!side_menu.hasClass('relative'))
+    {
+        side_menu.addClass("relative");
+        side_menu_right.animate({right: '+=220'},500);
+        side_menu_left.animate({left: '+=220'},500);
+    }
+}
+function hide_left_menu(e)
+{
+    if(side_menu.hasClass('relative'))
+    {
+        side_menu_right.animate({right: '-=220'},500);
+        side_menu_left.animate({left: '-=220'},500,
+        function(){side_menu.removeClass("relative");});
+    }
+}
 $(document).ready(function()
 {
     var form_obj = $('form');
@@ -62,7 +80,6 @@ $(document).ready(function()
     function enable_progress_timer()
     {
         var timeout = +questions.filter(':visible').find(':hidden').eq(1).val();
-        console.log(timeout);
         progress_bar.progressTimer({
             timeLimit: timeout,
             warningThreshold: 7,
@@ -136,4 +153,21 @@ $(document).ready(function()
     {
              e.preventDefault();
     });
+    side_menu = $('.row-offcanvas');
+    if(side_menu.length)
+    {   
+        side_menu_left = $('.row-offcanvas-left');
+        side_menu_right = $('.row-offcanvas-right');
+        jQuery("body").on("swiperight", show_left_menu).on("swipeleft", hide_left_menu).on('movestart', function(e) 
+        {
+             // If the movestart is heading off in an upwards or downwards
+             // direction, prevent it so that the browser scrolls normally.
+             if ((e.distX > e.distY && e.distX < -e.distY) ||
+                 (e.distX < e.distY && e.distX > -e.distY)) 
+             {
+                e.preventDefault();
+             }
+        });
+    }
+    
 });
