@@ -165,7 +165,7 @@ def show_leaderboard(request, board_type='overall', week_id=1):
         context['hide_status'] = True
     elif board_type and board_type.lower() == 'monthly':
         #leaderboard_objs = LeaderBoard.objects.all().values('user_id').annotate(points=Sum('points')).order_by('-points')
-        leaderboard_objs = LeaderBoard.objects.raw('select id,user_id_id,sum(points) as points from (select * from pyquiz_leaderboard  order by week_id ) b group by user_id_id order by points desc')
+        leaderboard_objs = LeaderBoard.objects.raw('select id,user_id_id,sum(points) as points from (select * from pyquiz_leaderboard  where week_id > %(week_id)s ) b group by user_id_id order by points desc'%{'week_id':int(week_id)-4})
         if limit:
             leaderboard_objs = list(leaderboard_objs)[:limit]
         leaderboard = {item.user_id:{'username':item.user_id.email,'points':item.points,'rank':rank+1, 'first_name':item.user_id.first_name, 'last_name':item

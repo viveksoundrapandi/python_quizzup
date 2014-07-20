@@ -107,7 +107,7 @@
                                                         </table>
                                                     </div><!-- /.box-body -->
                                                     <div class="box-footer">
-                                                        <a class="spinner" href="{% url 'leaderboard' '/monthly' %}" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                        <a class="spinner" href="{% url 'leaderboard' '/monthly/' last_week_id %}" target="_blank" >More info <i class="fa fa-arrow-circle-right"></i></a>
                                                     </div>
                                                 </div><!-- /.box -->
                                             </div><!-- /.col -->
@@ -196,8 +196,8 @@
             });
         }
         defer_load("{% url 'leaderboard' '/overall' %}?limit=3", $("#overall"));
-        defer_load("{% url 'leaderboard' '/weekly/' last_week_id%}?limit=3", $("#weekly"));
-        defer_load("{% url 'leaderboard' '/monthly' %}?limit=3", $("#monthly"));
+        defer_load("{% url 'leaderboard' '/weekly/' last_week_id %}?limit=3", $("#weekly"));
+        defer_load("{% url 'leaderboard' '/monthly/' last_week_id %}?limit=3", $("#monthly"));
         $('#feedback').feedBackBox({'isUsernameEnabled':false,'userName':"{{user_profile.email}}", 'csrf_token':"{{ csrf_token }}"});
     });
 </script>
