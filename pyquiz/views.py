@@ -14,7 +14,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.csrf import csrf_exempt
 import logging
-
 #cutom imports
 from python_quizzup import settings
 from pyquiz.models import Questions, Choices, LeaderBoard, QuizHistory, CustomUser as User, UserAnswers, UserBadges, Badges, GCMRegistrations
@@ -25,6 +24,7 @@ logger = logging.getLogger(__name__)
 def home(request):
     context = {}
     logger.debug("this is a debug message!")
+    print request.META['HTTP_USER_AGENT']
     return render(request,'pyquiz/home.html', context)
 
 @login_required
@@ -374,13 +374,17 @@ def push_message_to_gcm(request):
     req = urllib2.Request(url, data, headers)
     f = urllib2.urlopen(req)
     response = json.loads(f.read())
-    assert False
+    print response
+    return HttpResponse("success")
+
 def save_gcm_id(request, registration_id):
     """
     """
     if not GCMRegistrations.objects.filter(registration_id=registration_id):
         GCMRegistrations(registration_id=registration_id).save()
-    return HttpResponse("Success")
+    data = json.dumps({"success":1})
+    data = '%s(%s);' % (request.REQUEST['callback'], data)
+    return HttpResponse(data, "text/javascript")
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(settings.LOGIN_URL)
