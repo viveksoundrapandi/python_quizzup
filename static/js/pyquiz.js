@@ -158,16 +158,19 @@ $(document).ready(function()
     {   
         side_menu_left = $('.row-offcanvas-left');
         side_menu_right = $('.row-offcanvas-right');
-        jQuery("body").on("swiperight", show_left_menu).on("swipeleft", hide_left_menu).on('movestart', function(e) 
+        if($("#question_title").length==0)
         {
-             // If the movestart is heading off in an upwards or downwards
-             // direction, prevent it so that the browser scrolls normally.
-             if ((e.distX > e.distY && e.distX < -e.distY) ||
-                 (e.distX < e.distY && e.distX > -e.distY)) 
-             {
-                e.preventDefault();
-             }
-        });
+            jQuery("body").on("swiperight", show_left_menu).on("swipeleft", hide_left_menu).on('movestart', function(e) 
+            {
+                 // If the movestart is heading off in an upwards or downwards
+                 // direction, prevent it so that the browser scrolls normally.
+                 if ((e.distX > e.distY && e.distX < -e.distY) ||
+                     (e.distX < e.distY && e.distX > -e.distY)) 
+                 {
+                    e.preventDefault();
+                 }
+            });
+        }
     }
     
 });
